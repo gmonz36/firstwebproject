@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
 import eHotel.entities.Room;
+import eHotel.entities.HotelChain;
 import eHotel.entities.employee;
 
 public class RoombookServlet extends HttpServlet {

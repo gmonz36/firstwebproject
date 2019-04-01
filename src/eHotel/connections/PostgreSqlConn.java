@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import eHotel.entities.HotelChain;
 import eHotel.entities.Room; 
 
 
@@ -203,6 +204,36 @@ public class  PostgreSqlConn{
 			      
 	    }
 		
+		public  ArrayList<HotelChain> getAllHotelChains(){
+			
+			getConn();
+			
+			ArrayList<HotelChain> hotelChains = new ArrayList<HotelChain>();
+			
+			try {
+				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from hotel_chain" );
+				rs = ps.executeQuery();
+				while(rs.next()){
+					String name = rs.getString("chainName");
+					Integer streetNumber = Integer.parseInt(rs.getString("streetNumber"));
+					String streetName = rs.getString("streetName");
+					String city = rs.getString("city");
+					String state = rs.getString("state");
+					String postalCode = rs.getString("postalCode");
+					String numberOfHotels = rs.getString("numberOfHotels");
+					HotelChain hotelChain = new HotelChain(name, streetNumber, streetName, city, state, postalCode, numberOfHotels);
+					hotelChains.add(hotelChain);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+	        	closeDB();
+	        }
+						
+			return hotelChains;
+			
+		}
 		
 		
 		

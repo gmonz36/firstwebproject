@@ -36,7 +36,9 @@
 					%>
 				</ul>
 				<input type="hidden" name="custName" value="<%=CustName%>" />
-				<h4>Here are avaiable rooms</h4>
+				<h4>Here are available hotel chains</h4>
+				<h4>Here are available hotels</h4>
+				<h4>Here are available rooms</h4>
 
 				<select name = "roomno">
 					<%
