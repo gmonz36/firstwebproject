@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eHotel.entities.HotelChain;
-import eHotel.entities.Room; 
+import eHotel.entities.Room;
+import eHotel.entities.booking; 
 
 
 public class  PostgreSqlConn{
@@ -133,13 +134,22 @@ public class  PostgreSqlConn{
 			getConn();
 			
 			ArrayList<Room> Rooms = new ArrayList<Room>();
-			
+			ArrayList<booking> bookings = new ArrayList<booking>();
 			try {
-				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from room where room_status='available'" );
+				ps = db.prepareStatement("SET search_path = 'eHotel'");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from room");
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String room_no = rs.getString("roomNumber");
-					Room room = new Room(room_no);
+					String hotel_chain_chainName = rs.getString("hotel_chain_chainName");
+					String hotel_hotelName = rs.getString("hotel_hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("room_roomNumber"));
+					float price = Float.parseFloat(rs.getString("price"));
+					String capacity = rs.getString("capacity");
+					String view = rs.getString("view");
+					boolean extendable = Boolean.parseBoolean(rs.getString("extendable"));
+					String problems = rs.getString("problems");
+					Room room = new Room(hotel_chain_chainName,hotel_hotelName,roomNumber,price,capacity,view,extendable,problems);
 					Rooms.add(room);
 				}
 			} catch (SQLException e) {
@@ -159,13 +169,35 @@ public class  PostgreSqlConn{
 			getConn();
 			
 			ArrayList<Room> Rooms = new ArrayList<Room>();
-			
+			ArrayList<booking> bookings = new ArrayList<booking>();
 			try {
-				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from booking where customer_ssn='"+custSSN+"'");
+				ps = db.prepareStatement("SET search_path = 'eHotel'");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from booking where customer_ssn='"+custSSN+"'");
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String room_no = rs.getString("roomNumber");
-					Room room = new Room(room_no);
+					String hotel_chain_chainName = rs.getString("hotel_chain_chainName");
+					String hotel_hotelName = rs.getString("hotel_hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("room_roomNumber"));
+					String checkInDate = rs.getString("checkInDate");
+					String checkOutDate = rs.getString("checkOutDate");
+					booking booking = new booking(hotel_chain_chainName, hotel_hotelName,roomNumber,checkInDate,checkOutDate);
+					bookings.add(booking);
+				}
+				for(booking booking: bookings) {
+					ps = db.prepareStatement("select * from room where hotel_chain_chainName='"+booking.getHotel_chain_chainName()
+											+"' AND hotel_hotelName='"+booking.getHotel_hotelName()+"' AND room_roomNumber='"
+											+booking.getRoomNumber()+"'");
+					rs = ps.executeQuery();
+					String hotel_chain_chainName = rs.getString("hotel_chain_chainName");
+					String hotel_hotelName = rs.getString("hotel_hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("room_roomNumber"));
+					float price = Float.parseFloat(rs.getString("price"));
+					String capacity = rs.getString("capacity");
+					String view = rs.getString("view");
+					boolean extendable = Boolean.parseBoolean(rs.getString("extendable"));
+					String problems = rs.getString("problems");
+					Room room = new Room(hotel_chain_chainName,hotel_hotelName,roomNumber,price,capacity,view,extendable,problems);
 					Rooms.add(room);
 				}
 			} catch (SQLException e) {

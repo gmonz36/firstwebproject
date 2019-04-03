@@ -28,8 +28,7 @@
 						}
 						if (broomList != null) {
 							for (Room room : broomList) {
-								//TODO display more information on booked rooms. HOTEL, CITY, STATE, ROOM NUMBER
-								String roominfo = room.getRoom_no();
+								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+"in "+room.getHotel_hotelName();
 					%>
 					<li><%=roominfo%></li>
 					<%

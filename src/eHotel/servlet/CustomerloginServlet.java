@@ -29,8 +29,6 @@ public class CustomerloginServlet extends HttpServlet {
 //		[0]:name,[1]:pwd
 		String[] pwdfromdb = con.getuserinforbycustSSN(userSSN);
 		
-		
-		
 		if (pwd.equals(pwdfromdb[1])) {			
 			
 			ArrayList<Room> bookedRooms = con.getbookedRooms(userSSN);
