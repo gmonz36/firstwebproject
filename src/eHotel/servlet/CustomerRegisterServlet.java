@@ -25,12 +25,19 @@ public class CustomerRegisterServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
-//		employee account = new employee();
 		String custSSN = req.getParameter("custSSN");
-		String custName = req.getParameter("custName");
+		String custfirstName = req.getParameter("custfirstName");
+		String custlastName = req.getParameter("custlastName");
+		String custStreetNumber = req.getParameter("custStreetNumber"); 
+		String custStreetName = req.getParameter("custStreetName");
+		String custAptNumber = req.getParameter("custAptNumber");
+		String custCity = req.getParameter("custCity");
+		String custState = req.getParameter("custState");
+		String custPostalCode = req.getParameter("custPostalCode");
 		String custPwd = req.getParameter("custPwd");
+		String registrationDate = java.time.LocalDate.now().toString();
 		
-		String[] param = new String[] {custSSN,custName,custPwd};
+		String[] param = new String[] {custSSN,custfirstName,custlastName,custStreetNumber,custStreetName,custAptNumber,custCity,custState,custPostalCode,custPwd,registrationDate};
 		
 		PostgreSqlConn con = new PostgreSqlConn();
 		boolean pwdfromdb = con.insertNewCustomer(param);
@@ -46,7 +53,7 @@ public class CustomerRegisterServlet extends HttpServlet{
 				
 				System.out.println(allRooms);
 				
-				req.setAttribute("CustName", custName);
+				req.setAttribute("CustName", custfirstName);
 				req.setAttribute("bookedRooms", bookedRooms);
 				req.setAttribute("allRooms", allRooms);
 

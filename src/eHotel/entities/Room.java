@@ -3,16 +3,14 @@ package eHotel.entities;
 public class Room {
 	
 	private String room_no;
-	private String room_status;
 	private String customer_ssn;
 	
 	public Room() {
 		
 	}
 	
-	public Room(String room_no, String room_status) {
+	public Room(String room_no) {
 		this.room_no = room_no;
-		this.room_status = room_status;
 	}
 
 	public String getRoom_no() {
@@ -21,14 +19,6 @@ public class Room {
 
 	public void setRoom_no(String room_no) {
 		this.room_no = room_no;
-	}
-
-	public String getRoom_status() {
-		return room_status;
-	}
-
-	public void setRoom_status(String room_status) {
-		this.room_status = room_status;
 	}
 
 	public String getCustomer_ssn() {

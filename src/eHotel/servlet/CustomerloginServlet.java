@@ -22,7 +22,6 @@ public class CustomerloginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-//		employee account = new employee();
 		String userSSN = req.getParameter("userSSN");
 		String pwd = req.getParameter("pwd");
 		
@@ -35,15 +34,13 @@ public class CustomerloginServlet extends HttpServlet {
 		if (pwd.equals(pwdfromdb[1])) {			
 			
 			ArrayList<Room> bookedRooms = con.getbookedRooms(userSSN);
-			
 			ArrayList<Room> allRooms = con.getAllAvailRooms();
-			
 			
 			req.setAttribute("CustName", pwdfromdb[0]);
 			req.setAttribute("bookedRooms", bookedRooms);
 			req.setAttribute("allRooms", allRooms);
 
-			req.getRequestDispatcher("booking.jsp").forward(req, resp);
+			req.getRequestDispatcher("customer_menu.jsp").forward(req, resp);
 			return;	
 		}
 		resp.sendRedirect("login_failure.jsp");

@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="eHotel.entities.Room"%>
+<%@page import="eHotel.entities.HotelChain"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -17,26 +18,25 @@
 		<h4>
 			Welcome,
 			<%=CustName%><h4>
-				<h4>Here are the room(s) you booked</h4>
-				<ul>
-					<%
-						Object obj1 = request.getAttribute("bookedRooms");
-						ArrayList<Room> broomList = null;
-						if (obj1 instanceof ArrayList) {
-							broomList = (ArrayList<Room>) obj1;
-						}
-						if (broomList != null) {
-							for (Room room : broomList) {
-								String roominfo = room.getRoom_no() + "---" + room.getRoom_status();
-					%>
-					<li><%=roominfo%></li>
-					<%
-						}
-						}
-					%>
-				</ul>
 				<input type="hidden" name="custName" value="<%=CustName%>" />
 				<h4>Here are available hotel chains</h4>
+				<select name = "hotelChains"> 
+					<%
+						Object objChain = request.getAttribute("allChains");
+						ArrayList<HotelChain> chainList = null;
+						if (objChain instanceof ArrayList) {
+							chainList = (ArrayList<HotelChain>) objChain;
+						}
+						if (chainList != null) {
+							for (HotelChain hotelChain : chainList) {
+					%>					
+						<option><%=hotelChain.getName()%></option>
+
+					<%
+						}
+						}
+					%> 
+				</select> 
 				<h4>Here are available hotels</h4>
 				<h4>Here are available rooms</h4>
 

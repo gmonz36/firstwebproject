@@ -76,21 +76,28 @@ public class  PostgreSqlConn{
 	    }
 		
 		
-		public String[] getuserinforbycustSSN(String param){
+		public String[] getuserinforbycustSSN(String ssn){
 			getConn();
 
 			String[] pwd = new String[2];
 			
 	        try{
-	            ps = db.prepareStatement("SET search_path = 'eHotel'; select * from customer where customer_ssn=?");
-	            
-	            ps.setString(1, param);	               
+	        	// st = db.createStatement();
+	        	// sql = "SET search_path = 'eHotel';"; 
+	        	//System.out.print(sql);
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	            //st.executeUpdate(sql);
+	            ps = db.prepareStatement("select * from customer where person_SSN="+"'"+ssn+"'");	               
 	            rs = ps.executeQuery();
-	
-				while(rs.next()) {
-					pwd[0] = rs.getString(2);
-					pwd[1] = rs.getString(3);
-				}
+	            if(rs.next()) pwd[1] = rs.getString("password");
+	            
+	            ps = db.prepareStatement("select * from person where SSN="+"'"+ssn+"'");
+	            rs = ps.executeQuery();
+	            //sql = "SET search_path = 'eHotel'; select * from person where SSN="+"'"+ssn+"'";
+	        	//System.out.print(sql);
+	            //rs = st.executeQuery(sql);
+	            if(rs.next())  pwd[0] = rs.getString("firstName");
 	            
 	        }catch(SQLException e){
 	            e.printStackTrace();
@@ -102,18 +109,18 @@ public class  PostgreSqlConn{
 		
 		public boolean insertNewCustomer(String[] param){
 			getConn();
-
-			
 	        try{
 	        	st = db.createStatement();
-	        	sql = "SET search_path = 'eHotel'; insert into customer values('"+param[0]+"','"+param[1]+"','"+param[2]+"')";
-	        	
+	        	//Create new person entity
+	        	sql = "SET search_path = 'eHotel'; insert into person values('"+param[0]+"','"+param[1]+"','"+param[2]+"',"+param[3]+",'"+param[4]+"',"+param[5]+",'"+param[6]+"','"+param[7]+"','"+param[8]+"')";
 	        	System.out.print(sql);
-	            
+	            st.executeUpdate(sql);
+	            //Create new customer entity
+	            sql = "SET search_path = 'eHotel'; insert into customer values('"+param[0]+"','"+param[9]+"','"+param[10]+"')";
+	        	System.out.print(sql);
 	            st.executeUpdate(sql);
 	            
 	            return true;
-
 	        }catch(SQLException e){
 	            e.printStackTrace();
 	            return false;
@@ -123,7 +130,6 @@ public class  PostgreSqlConn{
 	    }
 		
 		public  ArrayList<Room> getAllAvailRooms(){
-			
 			getConn();
 			
 			ArrayList<Room> Rooms = new ArrayList<Room>();
@@ -132,9 +138,8 @@ public class  PostgreSqlConn{
 				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from room where room_status='available'" );
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String room_no = rs.getString("room_no");
-					String room_status = rs.getString("room_status");
-					Room room = new Room(room_no, room_status);
+					String room_no = rs.getString("roomNumber");
+					Room room = new Room(room_no);
 					Rooms.add(room);
 				}
 			} catch (SQLException e) {
@@ -149,18 +154,18 @@ public class  PostgreSqlConn{
 		}
 		
 		public  ArrayList<Room> getbookedRooms(String custSSN){
+			//TODO fix this query to query more information from the bookings
 			
 			getConn();
 			
 			ArrayList<Room> Rooms = new ArrayList<Room>();
 			
 			try {
-				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from room where customer_ssn='"+custSSN+"'");
+				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from booking where customer_ssn='"+custSSN+"'");
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String room_no = rs.getString("room_no");
-					String room_status = rs.getString("room_status");
-					Room room = new Room(room_no, room_status);
+					String room_no = rs.getString("roomNumber");
+					Room room = new Room(room_no);
 					Rooms.add(room);
 				}
 			} catch (SQLException e) {
@@ -209,12 +214,11 @@ public class  PostgreSqlConn{
 			getConn();
 			
 			ArrayList<HotelChain> hotelChains = new ArrayList<HotelChain>();
-			
 			try {
 				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from hotel_chain" );
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String name = rs.getString("chainName");
+					String name = rs.getString("chainname");
 					Integer streetNumber = Integer.parseInt(rs.getString("streetNumber"));
 					String streetName = rs.getString("streetName");
 					String city = rs.getString("city");

@@ -39,13 +39,14 @@ public class RoombookServlet extends HttpServlet {
 		if (userSSN.length()!=0) {			
 			
 			ArrayList<Room> bookedRooms = con.getbookedRooms(userSSN);
-			
 			ArrayList<Room> allRooms = con.getAllAvailRooms();
+			ArrayList<HotelChain> allChains = con.getAllHotelChains();
 			
 			
 			req.setAttribute("CustName", custName);
 			req.setAttribute("bookedRooms", bookedRooms);
 			req.setAttribute("allRooms", allRooms);
+			req.setAttribute("allChains", allChains);
 
 			req.getRequestDispatcher("booking.jsp").forward(req, resp);
 			return;	
