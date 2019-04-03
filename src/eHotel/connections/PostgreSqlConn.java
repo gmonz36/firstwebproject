@@ -59,11 +59,13 @@ public class  PostgreSqlConn{
 			String pwd = "";
 			
 	        try{
-	            ps = db.prepareStatement("SET search_path = 'eHotel'; select employee_pass from employee where employee_id=?");
-	            
-	            ps.setString(1, param);	               
+
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select password from employee where username=?");	            
+	            ps.setString(1, param);	   
 	            rs = ps.executeQuery();
-	
 				while(rs.next()) {
 					pwd = rs.getString(1);
 				}
