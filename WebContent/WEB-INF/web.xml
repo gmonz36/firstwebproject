@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>jspServletLoginTest</display-name>
+  
   <servlet>
     <description></description>
-    <display-name>kkkkk</display-name>
+    <display-name>emplogin</display-name>
     <servlet-name>loginServlet</servlet-name>
-    <servlet-class>
-  eHotel.servlet.EmployeeloginServlet</servlet-class>
+    <servlet-class>eHotel.servlet.EmployeeloginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/logintest</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+    <description></description>
+    <display-name>empmenu</display-name>
+    <servlet-name>empMenuServlet</servlet-name>
+    <servlet-class>eHotel.servlet.EmployeeMenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>empMenuServlet</servlet-name>
+    <url-pattern>/empMenu</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>anythinghere</display-name>

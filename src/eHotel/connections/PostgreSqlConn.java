@@ -110,6 +110,38 @@ public class  PostgreSqlConn{
 			return pwd;       
 	    }
 		
+
+		public String[] getuserBooking(String ssn){
+			getConn();
+
+			String[] booking= new String[7];
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from Booking where checkindate<=now() and checkoutdate>= now()"
+	            		+ "and customer_SSN=?");	               
+	            ps.setString(1, ssn);	              
+	            rs = ps.executeQuery();
+	            
+	            if (rs.next()) {
+	            	booking[0]=rs.getString("hotel_chain_chainname");
+	            	booking[1]=rs.getString("hotel_hotelname");
+	            	booking[2]=rs.getString("room_roomnumber");
+	            	booking[3]=rs.getString("customerSSN");
+	            	booking[4]=rs.getString("bookingid");
+	            	booking[5]=rs.getString("checkindate");
+	            	booking[6]=rs.getString("checkoutdate");
+	            }
+	            	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return booking;       
+	    }
+		
 		public boolean insertNewCustomer(String[] param){
 			getConn();
 	        try{
