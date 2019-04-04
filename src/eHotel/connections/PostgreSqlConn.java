@@ -217,18 +217,18 @@ public class  PostgreSqlConn{
 			
 	        try{
 	        	
-	        	ps = db.prepareStatement("SET search_path = 'eHotel'; select customer_ssn from customer where customer_name='"+custName+"'");
+	        	ps = db.prepareStatement("SET search_path = 'eHotel'; select person_ssn from customer where customer_name='"+custName+"'");
 				rs = ps.executeQuery();
 				
 				while(rs.next()){
-					custSSN = rs.getString("customer_ssn");
+					custSSN = rs.getString("person_ssn");
 				}
 				
-				
+				/*
 	        	st = db.createStatement();
 	        	sql = "SET search_path = 'eHotel'; update room set customer_ssn='"+custSSN+"', room_status='booked' where room_no='"+roomno+"'";
 	            st.executeUpdate(sql);
-	            
+	            */
 	            
 	            return custSSN;
 

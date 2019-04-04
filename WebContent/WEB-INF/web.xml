@@ -42,6 +42,16 @@
     <servlet-name>roombookServlet</servlet-name>
     <url-pattern>/roombook</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>roomSearch</display-name>
+    <servlet-name>roomSearch</servlet-name>
+    <servlet-class>eHotel.servlet.roomSearch</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>roomSearch</servlet-name>
+    <url-pattern>/roomSearch</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
