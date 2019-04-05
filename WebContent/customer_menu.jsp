@@ -14,7 +14,6 @@
 	<%
 		String CustName = (String) request.getAttribute("CustName");
 	%>
-	<form method="post" action="roombook">
 		<h4>
 			Welcome,
 			<%=CustName%><h4>
@@ -28,7 +27,7 @@
 						}
 						if (broomList != null) {
 							for (Room room : broomList) {
-								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+"in "+room.getHotel_hotelName();
+								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+"in "+room.gethotelName();
 					%>
 					<li><%=roominfo%></li>
 					<%
@@ -37,10 +36,8 @@
 					%>
 				</ul>
 				<input type="hidden" name="custName" value="<%=CustName%>" />
-				<button onclick="location.href='index.html'">quit</button>
-				<button onclick="location.href='booking.jsp'">book a new room</button>
-	</form>
-
+				<button onclick="location.href='room_search.jsp'">book a new room</button>
+<button onclick="location.href='index.html'">quit</button>
 
 </body>
 </html>

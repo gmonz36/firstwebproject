@@ -2,8 +2,8 @@ package eHotel.entities;
 
 public class Room {
 	
-	private String hotel_chain_chainName;
-	private String hotel_hotelName;
+	private String chainName;
+	private String hotelName;
 	private int roomNumber;
 	private float price;
 	private String capacity;
@@ -11,11 +11,20 @@ public class Room {
 	private boolean extendable;
 	private String problems;
 	
-	public Room(String hotel_chain_chainName, String hotel_hotelName, int roomNumber, float price, String capacity,
+	public boolean equals(Room room) {
+		if(chainName.equals(room.getchainName())&&hotelName.equals(room.gethotelName())&&roomNumber==room.getRoomNumber()&&
+				price==room.getPrice()&&capacity.equals(room.getCapacity())
+				&&view.equals(room.getView())&&extendable==room.isExtendable()&&problems.equals(room.getProblems())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Room(String chainName, String hotelName, int roomNumber, float price, String capacity,
 			String view, boolean extendable, String problems) {
 		super();
-		this.hotel_chain_chainName = hotel_chain_chainName;
-		this.hotel_hotelName = hotel_hotelName;
+		this.chainName = chainName;
+		this.hotelName = hotelName;
 		this.roomNumber = roomNumber;
 		this.price = price;
 		this.capacity = capacity;
@@ -24,20 +33,20 @@ public class Room {
 		this.problems = problems;
 	}
 
-	public String getHotel_chain_chainName() {
-		return hotel_chain_chainName;
+	public String getchainName() {
+		return chainName;
 	}
 
-	public void setHotel_chain_chainName(String hotel_chain_chainName) {
-		this.hotel_chain_chainName = hotel_chain_chainName;
+	public void setchainName(String chainName) {
+		this.chainName = chainName;
 	}
 
-	public String getHotel_hotelName() {
-		return hotel_hotelName;
+	public String gethotelName() {
+		return hotelName;
 	}
 
-	public void setHotel_hotelName(String hotel_hotelName) {
-		this.hotel_hotelName = hotel_hotelName;
+	public void sethotelName(String hotelName) {
+		this.hotelName = hotelName;
 	}
 
 	public int getRoomNumber() {

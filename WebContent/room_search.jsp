@@ -8,21 +8,44 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Search room Page</title>
+<script>
+
+	function validate() {
+		var startDate = document.getElementById("startDate");
+		var endDate = document.getElementById("endDate");
+		var d1 = Date.parse(startDate.value);
+		var d2 = Date.parse(endDate.value);
+		if(startDate.value == ""){
+			alert("start date can't be null");
+			return false;
+		}
+		else if(endDate.value ==""){
+			alert("end date can't be null");
+			return false;
+		}
+		else if(d2 < d1) {
+			alert ("End date must be after start date");
+			return false
+		}
+		else
+			return true;
+	}
+
+</script>
 </head>
 <body>
 	<h4>Fill in the criteria for your room</h4>
 	<form method = "post" action="roomSearch">
-Start date(YYYY-MM-DD) *required:<input type="text" id="custSSN" name="custSSN"><br><br>
-End date(YYYY-MM-DD) *required:<input type="text" id="custfirstName" name="custfirstName"><br><br>
-Room capacity:<input type="text" id="custlastName" name="custlastName"><br><br>
-Country:<input type="text" id="custStreetNumber" name="custStreetNumber"><br><br>
-State:<input type="text" id="custStreetNumber" name="custStreetNumber"><br><br>
-City:<input type="text" id="custStreetNumber" name="custStreetNumber"><br><br>
-Hotel chain:<input type="text" id="custStreetName" name="custStreetName"><br><br>
-category:<input type="text" id="custAptNumber" name="custAptNumber"><br><br>
-hotel total number of room:<input type="text" id="custCity" name="custCity"><br><br>
-maximum price:<input type="text" id="custState" name="custState"><br><br>
-<button type="submit" onclick="return confirm('book?');">search</button>
+Start date(YYYY-MM-DD) *required:<input type="text" id="startDate" name="startDate"><br><br>
+End date(YYYY-MM-DD) *required:<input type="text" id="endDate" name="endDate"><br><br>
+Room capacity:<input type="text" id="roomCapacity" name="roomCapacity"><br><br>
+State:<input type="text" id="state" name="state"><br><br>
+City:<input type="text" id="city" name="city"><br><br>
+Hotel chain:<input type="text" id="hotelChain" name="hotelChain"><br><br>
+category:<input type="text" id="category" name="category"><br><br>
+hotel total number of room:<input type="text" id="hotelRoomNbr" name="hotelRoomNbr"><br><br>
+maximum price:<input type="text" id="price" name="price"><br><br>
+<button type="submit" value="submit" onclick="return validate();">search</button>
 </form>
 
 

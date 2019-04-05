@@ -1,36 +1,36 @@
 package eHotel.entities;
 
 public class booking {
-	String hotel_chain_chainName;
-	String hotel_hotelName;
+	String chainName;
+	String hotelName;
 	int roomNumber;
 	String checkInDate;
 	String checkOutDate;
 	
-	public booking(String hotel_chain_chainName, String hotel_hotelName, int roomNumber, String checkInDate,
+	public booking(String chainName, String hotelName, int roomNumber, String checkInDate,
 			String checkOutDate) {
 		super();
-		this.hotel_chain_chainName = hotel_chain_chainName;
-		this.hotel_hotelName = hotel_hotelName;
+		this.chainName = chainName;
+		this.hotelName = hotelName;
 		this.roomNumber = roomNumber;
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
 	}
 
-	public String getHotel_chain_chainName() {
-		return hotel_chain_chainName;
+	public String getchainName() {
+		return chainName;
 	}
 
-	public void setHotel_chain_chainName(String hotel_chain_chainName) {
-		this.hotel_chain_chainName = hotel_chain_chainName;
+	public void setchainName(String chainName) {
+		this.chainName = chainName;
 	}
 
-	public String getHotel_hotelName() {
-		return hotel_hotelName;
+	public String gethotelName() {
+		return hotelName;
 	}
 
-	public void setHotel_hotelName(String hotel_hotelName) {
-		this.hotel_hotelName = hotel_hotelName;
+	public void sethotelName(String hotelName) {
+		this.hotelName = hotelName;
 	}
 
 	public int getRoomNumber() {
