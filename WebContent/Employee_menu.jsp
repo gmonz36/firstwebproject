@@ -27,16 +27,25 @@
 </head>
 <body>
 
+		
+	
+	
 	<form method="post" action="empMenu">
 		Perform Check-in on Customer SSN:<input type="text" id="SSN" name="customerSSN"><br>
 		<button type="submit" value="submit" onclick="return validate();">Submit</button>
 		<br>
-		<br>
-		Update database
-		<button type="submit" value="Update" onclick="return validate();">Update</button>
 		
 		
 	</form>
+	
+	<form method="post" action="empMenu2">
+		<br>
+		Update database
+		<button type="submit" value="submit" onclick="return true;">Update</button>
+		<input type="hidden" name="username" value=<%=(String) request.getAttribute("employee_id")%> />
+	</form>
+	
+	
 
 </body>
 </html>
