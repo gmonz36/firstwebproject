@@ -2,6 +2,7 @@ package eHotel.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,8 @@ public class EmployeeloginServlet extends HttpServlet {
 		if (pwd.equals(pwdfromdb)) {			
 				System.out.println("success");
 				req.setAttribute("employee_id", username);
-				resp.sendRedirect("login_success.jsp?employee_id="+username);
+				
+				req.getRequestDispatcher("Employee_menu.jsp").forward(req, resp);
 				return;			
 		}
 		resp.sendRedirect("login_failure.jsp");

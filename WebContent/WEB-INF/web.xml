@@ -3,14 +3,54 @@
   <display-name>jspServletLoginTest</display-name>
   <servlet>
     <description></description>
-    <display-name>kkkkk</display-name>
+    <display-name>emplogin</display-name>
     <servlet-name>loginServlet</servlet-name>
-    <servlet-class>
-  eHotel.servlet.EmployeeloginServlet</servlet-class>
+    <servlet-class>eHotel.servlet.EmployeeloginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/logintest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>empmenu</display-name>
+    <servlet-name>empMenuServlet</servlet-name>
+    <servlet-class>eHotel.servlet.EmployeeMenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>empMenuServlet</servlet-name>
+    <url-pattern>/empMenu</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>empmenu2</display-name>
+    <servlet-name>empMenu2Servlet</servlet-name>
+    <servlet-class>eHotel.servlet.EmployeeMenu2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>empMenu2Servlet</servlet-name>
+    <url-pattern>/empMenu2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>dbUpdate</display-name>
+    <servlet-name>dbUpdateServlet</servlet-name>
+    <servlet-class>eHotel.servlet.DatabaseUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dbUpdateServlet</servlet-name>
+    <url-pattern>/dbUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>dbUpdate2</display-name>
+    <servlet-name>dbUpdate2Servlet</servlet-name>
+    <servlet-class>eHotel.servlet.DatabaseUpdate2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dbUpdate2Servlet</servlet-name>
+    <url-pattern>/dbUpdate2</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
