@@ -23,16 +23,13 @@ public class RoombookServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String custSSN = req.getParameter("custSSN");
-		int roomno = Integer.parseInt(req.getParameter("option_no"));
+		String option = req.getParameter("submit");
+		String[] roomInfo = option.split("--",-2);
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
-		System.out.println(endDate);
-		System.out.println(custSSN);
-		ArrayList<Room> roomList = (ArrayList<Room>) req.getAttribute("allRooms");
 		
 		PostgreSqlConn con = new PostgreSqlConn();
-		
-		con.bookRoom(custSSN,startDate,endDate,roomList.get(roomno-1).getchainName(),roomList.get(roomno-1).gethotelName(),roomList.get(roomno-1).getRoomNumber());
+		con.bookRoom(custSSN,startDate,endDate,roomInfo[0],roomInfo[1],Integer.parseInt(roomInfo[2]));
 		
 		resp.sendRedirect("customer_menu.jsp");
 		return;

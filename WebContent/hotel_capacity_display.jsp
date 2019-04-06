@@ -30,6 +30,6 @@
 						}
 					%>
 				</ul>
-<button onclick="location.href='customer_menu.jsp'">quit</button>
+<button onclick="location.href='customer_menu.jsp'">exit</button>
 </body>
 </html>

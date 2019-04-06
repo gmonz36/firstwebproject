@@ -52,9 +52,7 @@ public class RoomSearchServlet extends HttpServlet {
 		String hotelRoomNbr = req.getParameter("hotelRoomNbr");
 		String price = req.getParameter("price");
 		String custSSN = req.getParameter("custSSN");
-		
 		PostgreSqlConn con = new PostgreSqlConn();
-		
 		ArrayList<Room> searchedRooms = con.getSearchedRooms(startDate,endDate,roomCapacity,state,city,hotelChain,category,hotelRoomNbr,price);
 			
 		req.setAttribute("allRooms", searchedRooms);
@@ -63,9 +61,6 @@ public class RoomSearchServlet extends HttpServlet {
 		req.setAttribute("custSSN", custSSN);
 
 		req.getRequestDispatcher("booking.jsp").forward(req, resp);
-		return;	
-		
-		//resp.sendRedirect("login_failure.jsp");
-		//return;
+		return;
 	}
 }

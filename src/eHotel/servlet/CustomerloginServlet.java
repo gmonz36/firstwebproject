@@ -22,22 +22,22 @@ public class CustomerloginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		String userSSN = req.getParameter("userSSN");
+		String custSSN = req.getParameter("userSSN");
 		String pwd = req.getParameter("pwd");
 		
 		PostgreSqlConn con = new PostgreSqlConn();
 //		[0]:name,[1]:pwd
-		String[] pwdfromdb = con.getuserinforbycustSSN(userSSN);
+		String[] pwdfromdb = con.getuserinforbycustSSN(custSSN);
 		
 		if (pwd.equals(pwdfromdb[1])) {			
 			
-			ArrayList<Room> bookedRooms = con.getbookedRooms(userSSN);
+			ArrayList<Room> bookedRooms = con.getbookedRooms(custSSN);
 			ArrayList<Room> allRooms = con.getAllAvailRooms();
 			
 			req.setAttribute("CustName", pwdfromdb[0]);
 			req.setAttribute("bookedRooms", bookedRooms);
 			req.setAttribute("allRooms", allRooms);
-			req.setAttribute("custSSN", userSSN);
+			req.setAttribute("custSSN", custSSN);
 
 			req.getRequestDispatcher("customer_menu.jsp").forward(req, resp);
 			return;	

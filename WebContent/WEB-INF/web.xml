@@ -11,7 +11,7 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/emplogin</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>displayHotel</display-name>
     <servlet-name>HotelSearchServlet</servlet-name>
@@ -53,14 +53,24 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>areaRooms</display-name>
+    <display-name>initiateBooking</display-name>
     <servlet-name>CustomerMenuServlet2</servlet-name>
     <servlet-class>eHotel.servlet.CustomerMenuServlet2</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CustomerMenuServlet2</servlet-name>
-    <url-pattern>/areaRooms</url-pattern>
+    <url-pattern>/initiateBooking</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>areaSearch</display-name>
+    <servlet-name>AreaSearchServlet</servlet-name>
+    <servlet-class>eHotel.servlet.AreaSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AreaSearchServlet</servlet-name>
+    <url-pattern>/areaSearch</url-pattern>
+  </servlet-mapping>  
   <servlet>
     <description></description>
     <display-name>dbUpdate</display-name>

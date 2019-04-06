@@ -14,19 +14,20 @@ import eHotel.connections.PostgreSqlConn;
 import eHotel.entities.Room;
 
 /**
- * Servlet implementation class CustomerMenuServlet2
+ * Servlet implementation class AreaSearchServlet
  */
-@WebServlet("/CustomerMenuServlet2")
-public class CustomerMenuServlet2 extends HttpServlet {
+@WebServlet("/AreaSearchServlet")
+public class AreaSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerMenuServlet2() {
+    public AreaSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +41,13 @@ public class CustomerMenuServlet2 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		String custSSN = req.getParameter("custSSN");
-		req.setAttribute("custSSN", custSSN);
-		req.getRequestDispatcher("room_search.jsp").forward(req, resp);
+		PostgreSqlConn con = new PostgreSqlConn();
+		String state = req.getParameter("state");
+		String city = req.getParameter("city");
+		ArrayList<Room> rooms = con.getAreaRooms(state,city);
+		req.setAttribute("allRooms", rooms);
+		req.setAttribute("numberOfRooms", rooms.size());
+		req.getRequestDispatcher("area_display.jsp").forward(req, resp);
 		return;	
 	}
 

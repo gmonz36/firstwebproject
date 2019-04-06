@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%
-		String CustName = (String) request.getAttribute("CustName");
+		String custSSN = (String) request.getAttribute("custSSN");
 	%>
 				<h4>Here are the room(s) you booked</h4>
 				<ul>
@@ -31,14 +31,14 @@
 						}
 					%>
 				</ul>
-				<input type="hidden" name="custName" value="<%=CustName%>" />
-				<button onclick="location.href='room_search.jsp'">book a new room</button>
+	<form method="post" action="initiateBooking">
+				<input type="hidden" name="custSSN" value="<%=custSSN%>" />
+				<button type="submit" value="submit">book a new room</button>
+	</form>
 	<form method="post" action="hotelCapacity">
 				<button type="submit" value="submit">view rooms capacity for an hotel</button>
 	</form>
-	<form method="post" action="areaRooms">
-				<button type="submit" value="submit">view available rooms per area</button>
-	</form>
+<button onclick="location.href='area_search.jsp'">view available rooms per area</button>
 <button onclick="location.href='index.html'">quit</button>
 </body>
 </html>

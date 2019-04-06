@@ -24,6 +24,18 @@
 </head>
 <body>
 	<form method="post" action="roombook">
+	<%
+		String startDate = (String) request.getAttribute("startDate");
+	%>
+	<%
+		String endDate = (String) request.getAttribute("endDate");
+	%>
+	<%
+		String custSSN = (String) request.getAttribute("custSSN");
+	%>
+	<input type="hidden" name="startDate" value="<%=startDate%>" />
+	<input type="hidden" name="endDate" value="<%=endDate%>" />
+	<input type="hidden" name="custSSN" value="<%=custSSN%>" />
 				<h4>Here are the room(s) you can book</h4>
 				<ul>
 					<%
@@ -35,7 +47,6 @@
 						if (roomList != null) {
 							int i = 1;
 							for (Room room : roomList) {
-								System.out.println(i);
 								String str = "-------- Room option "+i+"--------";
 								String chain = "Chain name: "+room.getchainName();
 								String hotel = "Hotel name: "+room.gethotelName();
@@ -51,7 +62,7 @@
 								i++;
 								//TODO also add amenities
 					%>
-					<li><%=str%></li>
+					<li class="no-bullet"><%=str%></li>
 					<li><%=chain%></li>
 					<li><%=hotel%></li>
 					<li><%=number%></li>
@@ -60,14 +71,15 @@
 					<li><%=view%></li>
 					<li><%=extendable%></li>
 					<li><%=problems%></li>
+					<li class="no-bullet">
+                      <button id='submit-<%=i%>' type="submit" name='submit' value="<%=room.getchainName()%>--<%=room.gethotelName()%>--<%=room.getRoomNumber()%>" onclick="return confirm('book?');">book</button>
+                    </li>
 					<%
 						}
 						}
 					%>
 				</ul>
-				Enter the room option number to book:<input type="text" id="option_no" name="option_no"><br><br>
-				<button type="submit" value="submit" onclick="return validate();">book</button>
 	</form>
-<button onclick="location.href='index.html'">quit</button>
+<button onclick="location.href='index.html'">exit</button>
 </body>
 </html>
