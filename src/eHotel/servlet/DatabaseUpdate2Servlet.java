@@ -140,15 +140,15 @@ public class DatabaseUpdate2Servlet extends HttpServlet {
 			case "CUSTOMER":
 				String[] customer = con.getCustomerBySSN(req.getParameter("SSN"));
 				
-				req.setAttribute("ssn", customer[0]);
-				req.setAttribute("firstname", customer[1]);
-				req.setAttribute("lastname", customer[2]);
-				req.setAttribute("streetnumber", customer[3]);
-				req.setAttribute("streetname", customer[4]);
-				req.setAttribute("aptnumber", customer[5]);
+				req.setAttribute("SSN", customer[0]);
+				req.setAttribute("FirstName", customer[1]);
+				req.setAttribute("LastName", customer[2]);
+				req.setAttribute("streetNo", customer[3]);
+				req.setAttribute("streetName", customer[4]);
+				req.setAttribute("aptNo", customer[5]);
 				req.setAttribute("city", customer[6]);
 				req.setAttribute("state", customer[7]);
-				req.setAttribute("postalcode", customer[8]);
+				req.setAttribute("pCode", customer[8]);
 				req.setAttribute("password", customer[9]);
 				req.setAttribute("registrationdate", customer[10]);
 
@@ -179,7 +179,6 @@ public class DatabaseUpdate2Servlet extends HttpServlet {
 			case "ROOM":
 				
 
-System.out.println("TEST");
 				String[] room = con.getRoom(req.getParameter("chainName"),req.getParameter("hotelName"),req.getParameter("roomNumber"));
 				req.setAttribute("chainName", room[0]);
 				req.setAttribute("hotelName", room[1]);
@@ -188,39 +187,26 @@ System.out.println("TEST");
 				req.setAttribute("capacity", room[4]);
 				req.setAttribute("view", room[5]);
 				req.setAttribute("extendable", room[6]);
+				System.out.println("test " + room[6]);
 				req.setAttribute("problems", room[7]);
 				
+				String[] amenities = con.getAmenities(req.getParameter("chainName"),req.getParameter("hotelName"),req.getParameter("roomNumber"));
 
-System.out.println("TEST2");
-				String[] amenities = con.getAmenities(req.getParameter("chaiNname"),req.getParameter("hotelName"),req.getParameter("roomNumber"));
-
-System.out.println("TEST3");
 				for (String am: amenities) {
 					System.out.println(am);
 					if (am!=null){
 						if (am.equals("Television")) {				
 							req.setAttribute("Television", "Television");
-						}else {
-							req.setAttribute("Television", "Null");
-							
-						}
-						if (am.equals("Air Conditioning")) {				
+						}else if (am.equals("Air Conditioning")) {				
 							req.setAttribute("airCon", "airCon");
-						}else {
-							req.setAttribute("airCon", "Null");
-							
-						}
-						if (am.equals("Fridge")) {				
+						}else if (am.equals("Fridge")) {				
 							req.setAttribute("Fridge", "Fridge");
-						}else {
-							req.setAttribute("Fridge", "Null");
-							
 						}
+						
 					}
 					
 				}
 
-				System.out.println("AAAAAAA");
 
 				req.getRequestDispatcher("UpdateRoom2.jsp").forward(req, resp);		
 				break;

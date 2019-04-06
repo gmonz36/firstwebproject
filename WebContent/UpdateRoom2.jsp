@@ -35,8 +35,6 @@
 </head>
 <body>
 
-test
-
 	<form method="post" action=dbUpdate3>
 		<TABLE style="background-color: #ECE5B6;" WIDTH="100%">
 			<tr>
@@ -65,8 +63,8 @@ test
 			</tr>
 			<tr>
 				<td width="20%">Extendable:</td>
-				<td width="20%"><input type="Radio" id= "extendable" name="extendable" value="True"> Yes </td>
-				<td width="20%"><input type="Radio" id= "extendable" name="extendable" value="False"> No </td>
+				<td width="20%"><input type="Radio" id= "extendable" name="extendable" value="True" <%= ("t".equals(request.getAttribute("extendable")) ? "checked" : "") %>> Yes </td>
+				<td width="20%"><input type="Radio" id= "extendable" name="extendable" value="False" <%= ("f".equals(request.getAttribute("extendable")) ? "checked" : "") %>> No </td>
 			</tr>
 			<tr>
 				<td width="20%">Amenities:</td>

@@ -209,12 +209,12 @@ public class  PostgreSqlConn{
 	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
 	        	ps.executeUpdate();
 	        	
-	            ps = db.prepareStatement("select * from amenity where chainname="+"'"+chainname+"' and hotelname='" + hotelname + "' and roomnumber=" + roomnumber);	               
+	            ps = db.prepareStatement("select * from amenity where chainname="+"'"+chainname+"' and hotelname='" + hotelname + "' and roomnumber=" + roomnumber);
 	            rs = ps.executeQuery();
 	            
 	            int i=0;
-	            if (rs.next()) {
-	            	
+	            while (rs.next()) {
+	            	System.out.println(rs.getString("type"));
 	            	amenities[i]=rs.getString("type");
 	            	i++;
 	            }
@@ -690,7 +690,7 @@ public class  PostgreSqlConn{
 	            ps = db.prepareStatement("UPDATE hotel SET price=?, capacity=?, view=?, extendable=?,"
 	            		+ "problems=? where chainname=? and hotelname=? and roomnumber=?");	      
 	            ps.setBigDecimal(1, (new BigDecimal(params[3])) );	      
-	            ps.setInt(2, Integer.parseInt(params[4]));	     
+	            ps.setString(2, params[4]);	     
 	            ps.setString(3, params[5]);	     
 	            ps.setBoolean(4, Boolean.parseBoolean(params[6]));	     
 	            ps.setString(5, params[7]);

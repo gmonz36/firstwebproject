@@ -109,23 +109,23 @@ public class DatabaseUpdate3Servlet extends HttpServlet {
 				amenities[2]=params[2];	
 				
 				amenities[3]="Television";
-				if (req.getParameter("tv")!= null) {				
+				if (req.getParameter("tv")!= null) {	
+					con.insertNewAmenity(amenities);	
+				}else {		
 					con.deleteAmenity(amenities);
-				}else {
-					con.insertNewAmenity(amenities);
 					
 				}
 				amenities[3]="Air Conditioning";
-				if (req.getParameter("airCond")!= null) {		
+				if (req.getParameter("airCond")!= null) {	
+					con.insertNewAmenity(amenities);	
+				}else {		
 					con.deleteAmenity(amenities);
-				}else {
-					con.insertNewAmenity(amenities);
 				}
 				amenities[3]="Fridge";
-				if (req.getParameter("fridge")!= null) {		
+				if (req.getParameter("fridge")!= null) {	
+					con.insertNewAmenity(amenities);	
+				}else {		
 					con.deleteAmenity(amenities);
-				}else {
-					con.insertNewAmenity(amenities);
 				}
 
 				
