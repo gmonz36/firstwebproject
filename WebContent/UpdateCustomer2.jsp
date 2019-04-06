@@ -39,7 +39,7 @@
 			<tr>
 				
 				<td width="20%">SSN:</td>
-				<td width="20%"><input type="Text" id= "SSN" name="SSN"></td>
+				<td width="20%"><input type="Text" id= "SSN" name="SSN" readonly="readonly"></td>
 			</tr>
 			<tr>
 				
@@ -85,7 +85,8 @@
 				<td width="20%"><input type="Text" id= "registrationdate" name="registrationdate" readonly="readonly" value=<%=(String) request.getAttribute("CurrentDate")%>></td>
 			</tr>
 				<tr><td></td><td></td>
-				<td><input type="submit" value="submit" onclick="return validate();"></td></tr>
+				<td><input type="submit" value="UPDATE" name="Operation" onclick="return validate();"></td>
+				<td><input type="submit" value="DELETE" name="Operation" onclick="return true;"></td></tr>
 		</TABLE>
 		<input type="hidden" name="Operation" value=<%=(String) request.getAttribute("Operation")%> />
 		<input type="hidden" name="Table" value=<%=(String) request.getAttribute("Table")%> />

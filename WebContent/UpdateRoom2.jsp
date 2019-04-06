@@ -41,15 +41,15 @@
 		<TABLE style="background-color: #ECE5B6;" WIDTH="100%">
 			<tr>
 				<td width="20%">Hotel Chain Name:</td>
-				<td width="20%"><input type="Text" id= "chainName" name="chainName"></td>
+				<td width="20%"><input type="Text" id= "chainName" name="chainName" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td width="20%">Hotel Name:</td>
-				<td width="20%"><input type="Text" id= "hotelName" name="hotelName"></td>
+				<td width="20%"><input type="Text" id= "hotelName" name="hotelName" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td width="20%">Room Number:</td>
-				<td width="20%"><input type="Text" id= "roomNumber" name="roomNumber"></td>
+				<td width="20%"><input type="Text" id= "roomNumber" name="roomNumber" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td width="20%">Price:</td>
@@ -83,7 +83,8 @@
 			</tr>
 			
 			<tr>
-				<td><input type="submit" value="submit" onclick="return validate();"></td></tr>
+				<td><input type="submit" value="UPDATE" name="Operation" onclick="return validate();"></td>
+				<td><input type="submit" value="DELETE" name="Operation" onclick="return true;"></td></tr>
 				
 		</TABLE>
 		<input type="hidden" name="Operation" value=<%=(String) request.getAttribute("Operation")%> />

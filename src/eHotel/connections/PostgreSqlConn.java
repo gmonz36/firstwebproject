@@ -1,5 +1,6 @@
 package eHotel.connections;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,52 @@ public class  PostgreSqlConn{
 			return emp;       
 	    }
 		
-		public void deleteEmployee(String ssn){
+		public boolean deleteHotel(String chainname, String hotelname){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("DELETE FROM hotel where chainname=? and hotelname=?");	      
+	            ps.setString(1, chainname);	      
+	            ps.setString(2, hotelname);	                    
+	            ps.executeUpdate();
+
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+
+		public boolean deleteCustomer(String ssn){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("DELETE FROM customer where SSN="+"'"+ssn+"'");	               
+	            ps.executeUpdate();
+
+
+	            ps = db.prepareStatement("DELETE FROM person where SSN="+"'"+ssn+"'");	               
+	            ps.executeUpdate();
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+		public boolean deleteEmployee(String ssn){
 			getConn();
 	        try{
 	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
@@ -107,9 +153,58 @@ public class  PostgreSqlConn{
 	            ps = db.prepareStatement("DELETE FROM person where SSN="+"'"+ssn+"'");	               
 	            ps.executeUpdate();
 	            
+	            return true;
 	            
 	        }catch(SQLException e){
 	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+		public boolean deleteRoom(String chainname, String hotelname, Integer roomNumber, String[] amenities){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("DELETE FROM room where chainname=? and hotelname=? and roomnumber=?");	      
+	            ps.setString(1, chainname);	      
+	            ps.setString(2, hotelname);	       
+	            ps.setInt(3, roomNumber);	                   
+	            ps.executeUpdate();
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+
+		public boolean deleteAmenity(String[] params){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("DELETE FROM amenity where chainname=? and hotelname=? and roomnumber=? and type=?");	      
+	            ps.setString(1, params[0]);	      
+	            ps.setString(2, params[1]);	       
+	            ps.setInt(3, Integer.parseInt(params[2]));	       
+	            ps.setString(4, params[3]);                   
+	            ps.executeUpdate();
+
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
 	        }finally {
 	        	closeDB();
 	        }     
@@ -342,6 +437,147 @@ public class  PostgreSqlConn{
 			
 			
 		}
+		
+
+		public boolean updateHotel(String[] params){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("UPDATE hotel SET ssn=?,  starrating=?, streetnumber=?, streetname=?,"
+	            		+ "city=?, state=?, postalcode=? where chainname=? and hotelname=?");	      
+	            ps.setString(1, params[0]);	      
+	            ps.setInt(2, Integer.parseInt(params[3]));	     
+	            ps.setInt(3, Integer.parseInt(params[4]));	     
+	            ps.setString(4, params[5]);	     
+	            ps.setString(5, params[6]);	     
+	            ps.setString(6, params[7]);	     
+	            ps.setString(7, params[8]);	     
+	            ps.setString(8, params[1]);	     
+	            ps.setString(9, params[2]);	 	                    
+	            ps.executeUpdate();
+
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+
+		public boolean updateCustomer(String[] params){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("UPDATE person SET firstname=?,  lastname=?, streetnumber=?, streetname=?,"
+	            		+ "aptnumber=?, city=?, state=?, postalcode=? where ssn=?");	      
+	            ps.setString(1, params[1]);	           
+	            ps.setString(2, params[2]);	      
+	            ps.setInt(3, Integer.parseInt(params[3]));	     
+	            ps.setString(4, params[4]);	          
+	            ps.setInt(5, Integer.parseInt(params[5]));	
+	            ps.setString(6, params[6]);	     
+	            ps.setString(7, params[7]);	     
+	            ps.setString(8, params[8]);	     
+	            ps.setString(9, params[0]);	 	                    
+	            ps.executeUpdate();
+
+	            ps = db.prepareStatement("UPDATE customer SET password=?,  registrationdate=? where ssn=?");
+
+	            ps.setString(1, params[9]);	     
+	            ps.setString(2, params[10]);	     
+	            ps.setString(3, params[1]);	 	
+	            ps.executeUpdate();
+
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+
+		public boolean updateEmployee(String[] params){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("UPDATE person SET firstname=?,  lastname=?, streetnumber=?, streetname=?,"
+	            		+ "aptnumber=?, city=?, state=?, postalcode=? where ssn=?");	      
+	            ps.setString(1, params[1]);	           
+	            ps.setString(2, params[2]);	      
+	            ps.setInt(3, Integer.parseInt(params[3]));	     
+	            ps.setString(4, params[4]);	          
+	            ps.setInt(5, Integer.parseInt(params[5]));	
+	            ps.setString(6, params[6]);	     
+	            ps.setString(7, params[7]);	     
+	            ps.setString(8, params[8]);	     
+	            ps.setString(9, params[0]);	 	                    
+	            ps.executeUpdate();
+
+	            ps = db.prepareStatement("UPDATE employee SET position=?, username=?, password=?"
+	            		+ "where chainname=? and hotelname=? and ssn=?");
+
+	            ps.setString(1, params[11]);	     
+	            ps.setString(2, params[12]);	     
+	            ps.setString(3, params[13]);	      
+	            ps.setString(4, params[9]);	 	     
+	            ps.setString(5, params[10]);	 	     
+	            ps.setString(6, params[0]);	 		
+	            ps.executeUpdate();
+
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
+		public boolean updateRoom(String[] params){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("UPDATE hotel SET price=?, capacity=?, view=?, extendable=?,"
+	            		+ "problems=? where chainname=? and hotelname=? and roomnumber=?");	      
+	            ps.setBigDecimal(1, (new BigDecimal(params[3])) );	      
+	            ps.setInt(2, Integer.parseInt(params[4]));	     
+	            ps.setString(3, params[5]);	     
+	            ps.setBoolean(4, Boolean.parseBoolean(params[6]));	     
+	            ps.setString(5, params[7]);
+	            
+	            ps.setString(6, params[0]);	     
+	            ps.setString(7, params[1]);	     
+	            ps.setInt(8, Integer.parseInt(params[2]));	 	                    
+	            ps.executeUpdate();
+	            
+	            return true;
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
+		
 		
 		public  ArrayList<Room> getAllAvailRooms(){
 			getConn();

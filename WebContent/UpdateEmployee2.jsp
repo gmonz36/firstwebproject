@@ -42,7 +42,7 @@
 			<tr>
 				
 				<td width="20%">SSN:</td>
-				<td width="20%"><input type="Text" id= "SSN" name="SSN" value=<%=(String) request.getAttribute("ssn")%>></td>
+				<td width="20%"><input type="Text" id= "SSN" name="SSN" readonly="readonly" value=<%=(String) request.getAttribute("ssn")%>></td>
 			</tr>
 			<tr>
 				
