@@ -25,9 +25,12 @@
 				<td width="20%">Room Number:</td>
 				<td width="20%"><input type="Text" id= "roomNumber" name="roomNumber"></td>
 			</tr>
+			<tr>
+				<td><input type="submit" value="search" name="submit" onclick="return true"></td>
+			</tr>
 		</TABLE>
-		<input type="hidden" name="Operation" value=<%=(String) request.getAttribute("Operation")%> />
-		<input type="hidden" name="Table" value=<%=(String) request.getAttribute("Table")%> />
+		<input type="hidden" name="Operation" value="UPDATE" />
+		<input type="hidden" name="Table" value="ROOM" />
 	</form>
 </body>
 </html>

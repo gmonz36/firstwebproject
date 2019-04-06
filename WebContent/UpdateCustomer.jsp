@@ -17,9 +17,12 @@
 				<td width="20%">SSN:</td>
 				<td width="20%"><input type="Text" id= "SSN" name="SSN"></td>
 			</tr>
+			<tr>
+				<td><input type="submit" value="Search" name="submit" onclick="return validate();"></td>
+			</tr>
 		</TABLE>
-		<input type="hidden" name="Operation" value=<%=(String) request.getAttribute("Operation")%> />
-		<input type="hidden" name="Table" value=<%=(String) request.getAttribute("Table")%> />
+		<input type="hidden" name="Operation" value="UPDATE" />
+		<input type="hidden" name="Table" value="CUSTOMER" />
 	</form>
 </body>
 </html>

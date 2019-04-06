@@ -95,6 +95,138 @@ public class  PostgreSqlConn{
 			return emp;       
 	    }
 		
+		public String[] getCustomerBySSN(String ssn){
+			getConn();
+
+			String[] cust = new String[11];
+			cust[0]=ssn;
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from person where SSN="+"'"+ssn+"'");	               
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            cust[1] = rs.getString("firstname");
+	            cust[2] = rs.getString("lastname");
+	            cust[3] = rs.getString("streetnumber");
+	            cust[4] = rs.getString("streetname");
+	            cust[5] = rs.getString("aptnumber");
+	            cust[6] = rs.getString("city");
+	            cust[7] = rs.getString("state");
+	            cust[8] = rs.getString("postalcode");
+	            
+	            
+	            ps = db.prepareStatement("select * from customer where SSN="+"'"+ssn+"'");
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            cust[9] = rs.getString("password");
+	            cust[10] = rs.getString("registrationdate");
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return cust;       
+	    }
+		
+
+		
+		public String[] getHotel(String chainname, String hotelname){
+			getConn();
+
+			String[] cust = new String[10];
+			cust[0]=chainname;
+			cust[1]=hotelname;
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from hotel where chainname='"+chainname+"' and hotelname='" + hotelname + "'");	 
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            cust[2] = rs.getString("ssn");
+	            cust[3] = rs.getString("starrating");
+	            cust[4] = rs.getString("streetnumber");
+	            cust[5] = rs.getString("streetname");
+	            cust[6] = rs.getString("city");
+	            cust[7] = rs.getString("state");
+	            cust[8] = rs.getString("postalcode");
+	            cust[9] = rs.getString("numberofrooms");
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return cust;       
+	    }
+		
+
+		
+		public String[] getRoom(String chainname, String hotelname, String roomnumber){
+			getConn();
+
+			String[] room = new String[8];
+			room[0]=chainname;
+			room[1]=hotelname;
+			room[2]=roomnumber;
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from room where chainname="+"'"+chainname+"' and hotelname='" + hotelname + "' and roomnumber=" + roomnumber);	               
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            room[3] = rs.getString("price");
+	            room[4] = rs.getString("capacity");
+	            room[5] = rs.getString("view");
+	            room[6] = rs.getString("extendable");
+	            room[7] = rs.getString("problems");
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return room;       
+	    }
+		
+		public String[] getAmenities(String chainname, String hotelname, String roomnumber){
+			getConn();
+
+			String[] amenities = new String[3];
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from amenity where chainname="+"'"+chainname+"' and hotelname='" + hotelname + "' and roomnumber=" + roomnumber);	               
+	            rs = ps.executeQuery();
+	            
+	            int i=0;
+	            if (rs.next()) {
+	            	
+	            	amenities[i]=rs.getString("type");
+	            	i++;
+	            }
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return amenities;       
+	    }
+		
 		public boolean deleteHotel(String chainname, String hotelname){
 			getConn();
 	        try{

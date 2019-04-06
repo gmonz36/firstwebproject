@@ -28,6 +28,9 @@ public class DatabaseUpdate2Servlet extends HttpServlet {
 		req.setAttribute("Operation", operation);
 		req.setAttribute("Table", table);
 		
+		System.out.println(operation);
+		System.out.println(table);
+		
 		String[] params ;
 		PostgreSqlConn con = new PostgreSqlConn();
 		
@@ -119,12 +122,35 @@ public class DatabaseUpdate2Servlet extends HttpServlet {
 			
 			switch (table){
 			case "HOTEL":
+				String[] hotel = con.getHotel(req.getParameter("chainName"),req.getParameter("hotelName"));
 
+				req.setAttribute("chainName", hotel[0]);
+				req.setAttribute("hotelName", hotel[1]);
+				req.setAttribute("mSSN", hotel[2]);
+				req.setAttribute("starRating", hotel[3]);
+				req.setAttribute("streetNo", hotel[4]);
+				req.setAttribute("streetName", hotel[5]);
+				req.setAttribute("city", hotel[6]);
+				req.setAttribute("state", hotel[7]);
+				req.setAttribute("pCode", hotel[8]);
+				req.setAttribute("numberofrooms", hotel[9]);
+				
 				req.getRequestDispatcher("UpdateHotel2.jsp").forward(req, resp);		
 				break;
 			case "CUSTOMER":
-				String[] customer = con.getuserinforbycustSSN(req.getParameter("SSN"));
+				String[] customer = con.getCustomerBySSN(req.getParameter("SSN"));
 				
+				req.setAttribute("ssn", customer[0]);
+				req.setAttribute("firstname", customer[1]);
+				req.setAttribute("lastname", customer[2]);
+				req.setAttribute("streetnumber", customer[3]);
+				req.setAttribute("streetname", customer[4]);
+				req.setAttribute("aptnumber", customer[5]);
+				req.setAttribute("city", customer[6]);
+				req.setAttribute("state", customer[7]);
+				req.setAttribute("postalcode", customer[8]);
+				req.setAttribute("password", customer[9]);
+				req.setAttribute("registrationdate", customer[10]);
 
 				req.getRequestDispatcher("UpdateCustomer2.jsp").forward(req, resp);		
 				break;
@@ -152,7 +178,49 @@ public class DatabaseUpdate2Servlet extends HttpServlet {
 				break;
 			case "ROOM":
 				
+
+System.out.println("TEST");
+				String[] room = con.getRoom(req.getParameter("chainName"),req.getParameter("hotelName"),req.getParameter("roomNumber"));
+				req.setAttribute("chainName", room[0]);
+				req.setAttribute("hotelName", room[1]);
+				req.setAttribute("roomNumber", room[2]);
+				req.setAttribute("price", room[3]);
+				req.setAttribute("capacity", room[4]);
+				req.setAttribute("view", room[5]);
+				req.setAttribute("extendable", room[6]);
+				req.setAttribute("problems", room[7]);
 				
+
+System.out.println("TEST2");
+				String[] amenities = con.getAmenities(req.getParameter("chaiNname"),req.getParameter("hotelName"),req.getParameter("roomNumber"));
+
+System.out.println("TEST3");
+				for (String am: amenities) {
+					System.out.println(am);
+					if (am!=null){
+						if (am.equals("Television")) {				
+							req.setAttribute("Television", "Television");
+						}else {
+							req.setAttribute("Television", "Null");
+							
+						}
+						if (am.equals("Air Conditioning")) {				
+							req.setAttribute("airCon", "airCon");
+						}else {
+							req.setAttribute("airCon", "Null");
+							
+						}
+						if (am.equals("Fridge")) {				
+							req.setAttribute("Fridge", "Fridge");
+						}else {
+							req.setAttribute("Fridge", "Null");
+							
+						}
+					}
+					
+				}
+
+				System.out.println("AAAAAAA");
 
 				req.getRequestDispatcher("UpdateRoom2.jsp").forward(req, resp);		
 				break;

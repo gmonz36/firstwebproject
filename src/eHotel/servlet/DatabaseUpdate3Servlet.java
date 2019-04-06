@@ -101,8 +101,8 @@ public class DatabaseUpdate3Servlet extends HttpServlet {
 				params[5]=req.getParameter("view");
 				params[6]=req.getParameter("extendable");
 				params[7]=req.getParameter("problems");
-				
-				System.out.println(req.getParameter("problems"));
+
+				con.updateRoom(params);
 				
 				amenities[0]=params[0];
 				amenities[1]=params[1];
@@ -128,7 +128,6 @@ public class DatabaseUpdate3Servlet extends HttpServlet {
 					con.insertNewAmenity(amenities);
 				}
 
-				con.updateRoom(params);
 				
 				break;			
 			}

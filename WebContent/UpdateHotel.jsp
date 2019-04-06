@@ -21,9 +21,12 @@
 				<td width="20%">Hotel Name:</td>
 				<td width="20%"><input type="Text" id= "hotelName" name="hotelName"></td>
 			</tr>
+			<tr>
+				<td><input type="submit" value="search" name="submit" onclick="return validate();"></td>
+			</tr>
 		</TABLE>
-		<input type="hidden" name="Operation" value=<%=(String) request.getAttribute("Operation")%> />
-		<input type="hidden" name="Table" value=<%=(String) request.getAttribute("Table")%> />
+		<input type="hidden" name="Operation" value="UPDATE" />
+		<input type="hidden" name="Table" value="HOTEL" />
 	</form>
 </body>
 </html>

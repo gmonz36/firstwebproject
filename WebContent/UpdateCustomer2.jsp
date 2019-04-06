@@ -39,50 +39,50 @@
 			<tr>
 				
 				<td width="20%">SSN:</td>
-				<td width="20%"><input type="Text" id= "SSN" name="SSN" readonly="readonly"></td>
+				<td width="20%"><input type="Text" id= "SSN" name="SSN" readonly="readonly" value=<%=(String) request.getAttribute("SSN")%>></td>
 			</tr>
 			<tr>
 				
 				<td width="20%">First Name:</td>
-				<td width="20%"><input type="Text" id= "FirstName" name="FirstName"></td>
+				<td width="20%"><input type="Text" id= "FirstName" name="FirstName" value=<%=(String) request.getAttribute("FirstName")%>></td>
 			</tr>
 			<tr>
 				
 				<td width="20%">Last Name:</td>
-				<td width="20%"><input type="Text" id= "LastName" name="LastName"></td>
+				<td width="20%"><input type="Text" id= "LastName" name="LastName" value=<%=(String) request.getAttribute("LastName")%>></td>
 			</tr>
 			
 			<tr>
 				<td width="20%">Street Number:</td>
-				<td width="20%"><input type="Text" id= "streetNo" name="streetNo"></td>
+				<td width="20%"><input type="Text" id= "streetNo" name="streetNo" value=<%=(String) request.getAttribute("streetNo")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">Street Name:</td>
-				<td width="20%"><input type="Text" id= "streetName" name="streetName"></td>
+				<td width="20%"><input type="Text" id= "streetName" name="streetName" value=<%=(String) request.getAttribute("streetName")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">Apartment Number:</td>
-				<td width="20%"><input type="Text" id= "aptNo" name="aptNo"></td>
+				<td width="20%"><input type="Text" id= "aptNo" name="aptNo" value=<%=(String) request.getAttribute("aptNo")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">City:</td>
-				<td width="20%"><input type="Text" id= "city" name="city"></td>
+				<td width="20%"><input type="Text" id= "city" name="city" value=<%=(String) request.getAttribute("city")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">State:</td>
-				<td width="20%"><input type="Text" id= "state" name="state"></td>
+				<td width="20%"><input type="Text" id= "state" name="state" value=<%=(String) request.getAttribute("state")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">Postal Code:</td>
-				<td width="20%"><input type="Text" id= "pCode" name="pCode"></td>
+				<td width="20%"><input type="Text" id= "pCode" name="pCode value=<%=(String) request.getAttribute("pCode")%>"></td>
 			</tr>
 			<tr>
 				<td width="20%">Password:</td>
-				<td width="20%"><input type="Password" id= "password" name="password"></td>
+				<td width="20%"><input type="Password" id= "password" name="password" value=<%=(String) request.getAttribute("password")%>></td>
 			</tr>
 			<tr>
 				<td width="20%">Registration Date:</td>
-				<td width="20%"><input type="Text" id= "registrationdate" name="registrationdate" readonly="readonly" value=<%=(String) request.getAttribute("CurrentDate")%>></td>
+				<td width="20%"><input type="Text" id= "registrationdate" name="registrationdate" readonly="readonly" value=<%=(String) request.getAttribute("registrationdate")%>></td>
 			</tr>
 				<tr><td></td><td></td>
 				<td><input type="submit" value="UPDATE" name="Operation" onclick="return validate();"></td>
