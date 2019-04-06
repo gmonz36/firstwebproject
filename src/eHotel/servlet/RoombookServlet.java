@@ -22,36 +22,19 @@ public class RoombookServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-//		employee account = new employee();
-		String custName = req.getParameter("custName");
-		String roomno = req.getParameter("roomno");
-		
+		String custSSN = req.getParameter("custSSN");
+		int roomno = Integer.parseInt(req.getParameter("option_no"));
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		System.out.println(endDate);
+		System.out.println(custSSN);
+		ArrayList<Room> roomList = (ArrayList<Room>) req.getAttribute("allRooms");
 		
 		PostgreSqlConn con = new PostgreSqlConn();
 		
-		String userSSN = con.bookRoom(custName,roomno);
+		con.bookRoom(custSSN,startDate,endDate,roomList.get(roomno-1).getchainName(),roomList.get(roomno-1).gethotelName(),roomList.get(roomno-1).getRoomNumber());
 		
-//		[0]:name,[1]:pwd
-//		String[] pwdfromdb = con.getuserinforbycustSSN(userSSN);
-//		
-//		
-//		
-		if (userSSN.length()!=0) {			
-			
-			ArrayList<Room> bookedRooms = con.getbookedRooms(userSSN);
-			ArrayList<Room> allRooms = con.getAllAvailRooms();
-			ArrayList<HotelChain> allChains = con.getAllHotelChains();
-			
-			
-			req.setAttribute("CustName", custName);
-			req.setAttribute("bookedRooms", bookedRooms);
-			req.setAttribute("allRooms", allRooms);
-			req.setAttribute("allChains", allChains);
-
-			req.getRequestDispatcher("booking.jsp").forward(req, resp);
-			return;	
-		}
-		resp.sendRedirect("login_failure.jsp");
+		resp.sendRedirect("customer_menu.jsp");
 		return;
 	}
 }

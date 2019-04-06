@@ -3,7 +3,9 @@ package eHotel.connections;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import eHotel.entities.Hotel;
 import eHotel.entities.HotelChain;
 import eHotel.entities.Room;
 import eHotel.entities.booking; 
@@ -152,10 +154,10 @@ public class  PostgreSqlConn{
 	            rs = ps.executeQuery();
 	            
 	            if (rs.next()) {
-	            	booking[0]=rs.getString("hotel_chain_chainname");
-	            	booking[1]=rs.getString("hotel_hotelname");
-	            	booking[2]=rs.getString("room_roomnumber");
-	            	booking[3]=rs.getString("customerSSN");
+	            	booking[0]=rs.getString("chainname");
+	            	booking[1]=rs.getString("hotelname");
+	            	booking[2]=rs.getString("roomnumber");
+	            	booking[3]=rs.getString("SSN");
 	            	booking[4]=rs.getString("bookingid");
 	            	booking[5]=rs.getString("checkindate");
 	            	booking[6]=rs.getString("checkoutdate");
@@ -249,7 +251,9 @@ public class  PostgreSqlConn{
 				ps = db.prepareStatement("SET search_path = 'eHotel'");
 				ps.executeUpdate();
 				
-				String query = "SELECT * FROM room NATURAL JOIN Hotel,booking WHERE (checkinDate >='"+endDate+"' OR checkoutDate <='"+startDate+"')";
+				String query = "SELECT * FROM room LEFT JOIN hotel ON room.hotelName=Hotel.HotelName AND room.chainName=Hotel.chainName LEFT JOIN booking ON "
+						+ "	room.chainName=booking.chainName AND room.hotelName=booking.hotelName AND room.roomNumber=booking.roomNumber "
+						+ " WHERE (checkinDate >='"+endDate+"' OR checkoutDate <='"+startDate+"' OR( checkinDate IS NULL AND checkoutDate IS NULL))";
 				if(!roomCapacity.equals("")) {
 					query+=" AND capacity ='"+roomCapacity+"'";
 				}
@@ -266,10 +270,12 @@ public class  PostgreSqlConn{
 					query+=" AND price  ='"+price+"'";
 				}
 				//TODO implement search criteria for hotel total number of room
+				System.out.println(query);
 				ps = db.prepareStatement(query);
 				rs = ps.executeQuery();
 				
 				while(rs.next()){
+					System.out.println(rs.getString("roomNumber"));
 					String chainName = rs.getString("chainName");
 					String hotelName = rs.getString("hotelName");
 					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
@@ -340,30 +346,21 @@ public class  PostgreSqlConn{
 			
 		}
 		
-		public String bookRoom(String custName, String roomno){
+		public void bookRoom(String SSN,String startDate,String endDate,String chainName,String hotelName,int roomNumber){
 			getConn();
-			String custSSN="";
 			
 	        try{
-	        	
-	        	ps = db.prepareStatement("SET search_path = 'eHotel'; select SSN from customer where name='"+custName+"'");
-				rs = ps.executeQuery();
-				
-				while(rs.next()){
-					custSSN = rs.getString("SSN");
-				}
-				
-				/*
-	        	st = db.createStatement();
-	        	sql = "SET search_path = 'eHotel'; update room set SSN='"+custSSN+"', room_status='booked' where room_no='"+roomno+"'";
-	            st.executeUpdate(sql);
-	            */
-	            
-	            return custSSN;
+	        	String bookingID = "";
+	        	Random random = new Random();
+	        	for(int i=0;i<10;i++) {
+	        		bookingID+=random.nextInt(9);
+	        	}
+	        	System.out.println(SSN);
+	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO booking VALUES ('"+chainName+"', '"+hotelName+"', '"+roomNumber+"', '"+SSN+"', '"+startDate+"', '"+endDate+"')");
+				ps.executeUpdate();
 
 	        }catch(SQLException e){
-	            e.printStackTrace();
-	            return "";	 
+	            e.printStackTrace(); 
 	        }finally {
 	        	closeDB();
 	        }
@@ -396,8 +393,69 @@ public class  PostgreSqlConn{
 	        	closeDB();
 	        }
 						
-			return hotelChains;
+			return hotelChains;	
+		}
+		
+		public  ArrayList<Hotel> getAllHotels(){
+			getConn();
 			
+			ArrayList<Hotel> hotels = new ArrayList<Hotel>();
+			try {
+				ps = db.prepareStatement("SET search_path = 'eHotel';");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from hotel" );
+				rs = ps.executeQuery();
+				while(rs.next()){
+					String chainName = rs.getString("chainname");
+					String hotelName = rs.getString("hotelname");
+					Integer starRating = Integer.parseInt(rs.getString("starRating"));
+					Integer streetNumber = Integer.parseInt(rs.getString("streetNumber"));
+					String streetName = rs.getString("streetName");
+					String city = rs.getString("city");
+					String state = rs.getString("state");
+					String postalCode = rs.getString("postalCode");
+					Hotel hotel = new Hotel(chainName, hotelName, starRating, streetNumber, streetName, city, state, postalCode);
+					hotels.add(hotel);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+	        	closeDB();
+	        }
+						
+			return hotels;
 		}	
+
+	public  ArrayList<Room> getAllRoomsFromHotel(String cName, String hName){
+		getConn();
+		
+		ArrayList<Room> Rooms = new ArrayList<Room>();
+		try {
+			ps = db.prepareStatement("SET search_path = 'eHotel'");
+			ps.executeUpdate();
+			ps = db.prepareStatement("select * from room WHERE chainName= '"+cName+"' AND hotelName= '"+hName+"'");
+			rs = ps.executeQuery();
+			while(rs.next()){
+				String chainName = rs.getString("chainName");
+				String hotelName = rs.getString("hotelName");
+				int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
+				float price = Float.parseFloat(rs.getString("price"));
+				String capacity = rs.getString("capacity");
+				String view = rs.getString("view");
+				boolean extendable = Boolean.parseBoolean(rs.getString("extendable"));
+				String problems = rs.getString("problems");
+				Room room = new Room(chainName,hotelName,roomNumber,price,capacity,view,extendable,problems);
+				Rooms.add(room);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	    	closeDB();
+	    }
+					
+		return Rooms;	
 	}
+}
 

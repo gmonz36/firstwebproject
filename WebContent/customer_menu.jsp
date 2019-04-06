@@ -10,13 +10,9 @@
 <title>Welcome Page</title>
 </head>
 <body>
-
 	<%
 		String CustName = (String) request.getAttribute("CustName");
 	%>
-		<h4>
-			Welcome,
-			<%=CustName%><h4>
 				<h4>Here are the room(s) you booked</h4>
 				<ul>
 					<%
@@ -37,7 +33,12 @@
 				</ul>
 				<input type="hidden" name="custName" value="<%=CustName%>" />
 				<button onclick="location.href='room_search.jsp'">book a new room</button>
+	<form method="post" action="hotelCapacity">
+				<button type="submit" value="submit">view rooms capacity for an hotel</button>
+	</form>
+	<form method="post" action="areaRooms">
+				<button type="submit" value="submit">view available rooms per area</button>
+	</form>
 <button onclick="location.href='index.html'">quit</button>
-
 </body>
 </html>

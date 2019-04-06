@@ -1,7 +1,8 @@
 package eHotel.entities;
 
 public class Hotel {
-	private String name;
+	private String chainName;
+	private String hotelName;
 	private int starRating;
 	private int streetNumber;
 	private String streetName;
@@ -9,11 +10,11 @@ public class Hotel {
 	private String state;
 	private String postalCode;
 	
-	
-	public Hotel(String name, int starRating, int streetNumber, String streetName, String city, String state,
-			String postalCode) {
+	public Hotel(String chainName, String hotelName, int starRating, int streetNumber, String streetName, String city,
+			String state, String postalCode) {
 		super();
-		this.name = name;
+		this.chainName = chainName;
+		this.hotelName = hotelName;
 		this.starRating = starRating;
 		this.streetNumber = streetNumber;
 		this.streetName = streetName;
@@ -22,12 +23,22 @@ public class Hotel {
 		this.postalCode = postalCode;
 	}
 	
-	public String getName() {
-		return name;
+	public String getChainName() {
+		return chainName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setChainName(String chainName) {
+		this.chainName = chainName;
 	}
+
+	public String getHotelName() {
+		return hotelName;
+	}
+
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
+	}
+
 	public int getStarRating() {
 		return starRating;
 	}

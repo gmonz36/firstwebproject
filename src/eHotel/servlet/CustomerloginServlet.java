@@ -37,6 +37,7 @@ public class CustomerloginServlet extends HttpServlet {
 			req.setAttribute("CustName", pwdfromdb[0]);
 			req.setAttribute("bookedRooms", bookedRooms);
 			req.setAttribute("allRooms", allRooms);
+			req.setAttribute("custSSN", userSSN);
 
 			req.getRequestDispatcher("customer_menu.jsp").forward(req, resp);
 			return;	

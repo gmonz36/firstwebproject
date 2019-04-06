@@ -8,6 +8,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Booking Page</title>
+<script>
+
+	function validate() {
+		var room_no = document.getElementById("room_no");
+		if(room_no.value == ""){
+			alert("room_no can't be null");
+			return false;
+		}
+		else
+			return true;
+	}
+
+</script>
 </head>
 <body>
 	<form method="post" action="roombook">
@@ -15,14 +28,15 @@
 				<ul>
 					<%
 						Object obj1 = request.getAttribute("allRooms");
-						ArrayList<Room> broomList = null;
+						ArrayList<Room> roomList = null;
 						if (obj1 instanceof ArrayList) {
-							broomList = (ArrayList<Room>) obj1;
+							roomList = (ArrayList<Room>) obj1;
 						}
-						if (broomList != null) {
+						if (roomList != null) {
 							int i = 1;
-							for (Room room : broomList) {
-								String str = "-------- Room "+i+"--------";
+							for (Room room : roomList) {
+								System.out.println(i);
+								String str = "-------- Room option "+i+"--------";
 								String chain = "Chain name: "+room.getchainName();
 								String hotel = "Hotel name: "+room.gethotelName();
 								String number = "Room number: "+room.getRoomNumber();
@@ -34,6 +48,7 @@
 									extendable+="Yes";
 								} else { extendable+="No"; }
 								String problems = "Problems description: "+room.getProblems();
+								i++;
 								//TODO also add amenities
 					%>
 					<li><%=str%></li>
@@ -50,6 +65,8 @@
 						}
 					%>
 				</ul>
+				Enter the room option number to book:<input type="text" id="option_no" name="option_no"><br><br>
+				<button type="submit" value="submit" onclick="return validate();">book</button>
 	</form>
 <button onclick="location.href='index.html'">quit</button>
 </body>

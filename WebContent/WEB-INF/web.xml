@@ -11,6 +11,16 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/emplogin</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>displayHotel</display-name>
+    <servlet-name>HotelSearchServlet</servlet-name>
+    <servlet-class>eHotel.servlet.HotelSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HotelSearchServlet</servlet-name>
+    <url-pattern>/displayHotel</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>empmenu</display-name>
@@ -33,6 +43,26 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>hotelCapacity</display-name>
+    <servlet-name>CustomerMenuServlet</servlet-name>
+    <servlet-class>eHotel.servlet.CustomerMenuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerMenuServlet</servlet-name>
+    <url-pattern>/hotelCapacity</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>areaRooms</display-name>
+    <servlet-name>CustomerMenuServlet2</servlet-name>
+    <servlet-class>eHotel.servlet.CustomerMenuServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerMenuServlet2</servlet-name>
+    <url-pattern>/areaRooms</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>dbUpdate</display-name>
     <servlet-name>dbUpdateServlet</servlet-name>
     <servlet-class>eHotel.servlet.DatabaseUpdateServlet</servlet-class>
@@ -41,7 +71,6 @@
     <servlet-name>dbUpdateServlet</servlet-name>
     <url-pattern>/dbUpdate</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>dbUpdate2</display-name>
@@ -82,7 +111,7 @@
     <servlet-name>roombookServlet</servlet-name>
     <url-pattern>/roombook</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>roomSearch</display-name>
     <servlet-name>RoomSearchServlet</servlet-name>
