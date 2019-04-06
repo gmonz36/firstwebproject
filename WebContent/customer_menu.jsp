@@ -23,7 +23,7 @@
 						}
 						if (broomList != null) {
 							for (Room room : broomList) {
-								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+"in "+room.gethotelName();
+								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+" in "+room.gethotelName();
 					%>
 					<li><%=roominfo%></li>
 					<%

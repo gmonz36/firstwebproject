@@ -315,6 +315,7 @@ public class  PostgreSqlConn{
 											+"' AND hotelName='"+booking.gethotelName()+"' AND roomNumber='"
 											+booking.getRoomNumber()+"'");
 					rs = ps.executeQuery();
+					rs.next();
 					String chainName = rs.getString("chainName");
 					String hotelName = rs.getString("hotelName");
 					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
@@ -327,12 +328,10 @@ public class  PostgreSqlConn{
 					Rooms.add(room);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 	        	closeDB();
 	        }
-						
 			return Rooms;
 			
 		}
@@ -348,7 +347,6 @@ public class  PostgreSqlConn{
 	        	}
 	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO booking VALUES ('"+chainName+"', '"+hotelName+"', '"+roomNumber+"', '"+SSN+"', '"+bookingID+"', '"+startDate+"', '"+endDate+"')");
 				ps.executeUpdate();
-
 	        }catch(SQLException e){
 	            e.printStackTrace(); 
 	        }finally {
@@ -357,9 +355,7 @@ public class  PostgreSqlConn{
 	    }
 		
 		public  ArrayList<HotelChain> getAllHotelChains(){
-			
 			getConn();
-			
 			ArrayList<HotelChain> hotelChains = new ArrayList<HotelChain>();
 			try {
 				ps = db.prepareStatement("SET search_path = 'eHotel'; select * from hotel_chain" );

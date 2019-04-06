@@ -31,6 +31,11 @@ public class RoombookServlet extends HttpServlet {
 		PostgreSqlConn con = new PostgreSqlConn();
 		con.bookRoom(custSSN,startDate,endDate,roomInfo[0],roomInfo[1],Integer.parseInt(roomInfo[2]));
 		
+		ArrayList<Room> bookedRooms = con.getbookedRooms(custSSN);
+		req.setAttribute("bookedRooms", bookedRooms);
+		req.setAttribute("custSSN", custSSN);
+		
+		
 		resp.sendRedirect("customer_menu.jsp");
 		return;
 	}
