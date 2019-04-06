@@ -91,6 +91,16 @@
     <servlet-name>dbUpdate2Servlet</servlet-name>
     <url-pattern>/dbUpdate2</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>dbUpdate3</display-name>
+    <servlet-name>dbUpdate3Servlet</servlet-name>
+    <servlet-class>eHotel.servlet.DatabaseUpdate3Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dbUpdate3Servlet</servlet-name>
+    <url-pattern>/dbUpdate3</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>anythinghere</display-name>
