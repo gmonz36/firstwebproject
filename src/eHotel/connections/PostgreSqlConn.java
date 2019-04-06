@@ -618,11 +618,10 @@ public class  PostgreSqlConn{
 	            ps.setString(9, params[0]);	 	                    
 	            ps.executeUpdate();
 
-	            ps = db.prepareStatement("UPDATE customer SET password=?,  registrationdate=? where ssn=?");
+	            ps = db.prepareStatement("UPDATE customer SET password=? where ssn=?");
 
 	            ps.setString(1, params[9]);	     
-	            ps.setString(2, params[10]);	     
-	            ps.setString(3, params[1]);	 	
+	            ps.setString(2, params[1]);	 	
 	            ps.executeUpdate();
 
 	            
