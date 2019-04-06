@@ -52,7 +52,68 @@ public class  PostgreSqlConn{
 				}
 		}
 		
+		public String[] getEmployeeBySSN(String ssn){
+			getConn();
+
+			String[] emp = new String[14];
+			emp[0]=ssn;
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select * from person where SSN="+"'"+ssn+"'");	               
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            emp[1] = rs.getString("firstname");
+	            emp[2] = rs.getString("lastname");
+	            emp[3] = rs.getString("streetnumber");
+	            emp[4] = rs.getString("streetname");
+	            emp[5] = rs.getString("aptnumber");
+	            emp[6] = rs.getString("city");
+	            emp[7] = rs.getString("state");
+	            emp[8] = rs.getString("postalcode");
+	            
+	            
+	            ps = db.prepareStatement("select * from employee where SSN="+"'"+ssn+"'");
+	            rs = ps.executeQuery();
+	            
+	            rs.next();
+	            emp[9] = rs.getString("chainname");
+	            emp[10] = rs.getString("hotelname");
+	            emp[11] = rs.getString("position");
+	            emp[12] = rs.getString("username");
+	            emp[13] = rs.getString("password");
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return emp;       
+	    }
 		
+		public void deleteEmployee(String ssn){
+			getConn();
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("DELETE FROM employee where SSN="+"'"+ssn+"'");	               
+	            ps.executeUpdate();
+
+
+	            ps = db.prepareStatement("DELETE FROM person where SSN="+"'"+ssn+"'");	               
+	            ps.executeUpdate();
+	            
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }     
+	    }
 
 		
 		public String getpwdbyUname(String param){
@@ -190,6 +251,28 @@ public class  PostgreSqlConn{
 	        	closeDB();
 	        }	       
 	    }
+		
+		public boolean insertNewEmployee(String[] param){
+			getConn();
+	        try{
+	        	st = db.createStatement();
+	        	//Create new person entity
+	        	sql = "SET search_path = 'eHotel'; insert into person values('"+param[0]+"','"+param[1]+"','"+param[2]+"',"+param[3]+",'"+param[4]+"',"+param[5]+",'"+param[6]+"','"+param[7]+"','"+param[8]+"')";
+	        	System.out.print(sql);
+	            st.executeUpdate(sql);
+	            //Create new customer entity
+	            sql = "SET search_path = 'eHotel'; insert into employee values('"+param[9]+"','"+param[10]+"','"+param[0]+"','"+param[11]+"','"+param[12]+"','"+param[13]+"')";
+	        	System.out.print(sql);
+	            st.executeUpdate(sql);
+	            
+	            return true;
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }	       
+	    }
 
 		public boolean insertNewHotel (String[] param){
 			getConn();
@@ -208,6 +291,57 @@ public class  PostgreSqlConn{
 	        	closeDB();
 	        }	       
 	    }
+		
+
+		public boolean insertNewRoom(String[] param, String[] amenities) {
+			getConn();
+	        try{
+	        	st = db.createStatement();
+	        	//Create new Hotel entity
+	        	sql = "SET search_path = 'eHotel'; insert into room values('"+param[0]+"','"+param[1]+"','"+param[2]+"','"+param[3]+"','"+param[4]+"','"+param[5]+"','"+param[6]+"','"+param[7]+"')";
+	        	System.out.print(sql);
+	            st.executeUpdate(sql);
+	            
+	            for (String am: amenities){
+	            	if (am!= null) {
+		            	String[] params = new String[4];
+		            	params[0]=param[0];
+		            	params[1]=param[1];
+		            	params[2]=param[2];
+		            	params[3]=am;
+		            	insertNewAmenity(params);
+	            	}
+	            }
+
+	            return true;
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }	       
+	    }
+		
+
+		public boolean insertNewAmenity (String[] param) {
+			getConn();
+	        try{
+	        	st = db.createStatement();
+	        	//Create new Hotel entity
+	        	sql = "SET search_path = 'eHotel'; insert into amenity values('"+param[0]+"','"+param[1]+"','"+param[2]+"','"+param[3]+"')";
+	        	System.out.print(sql);
+	            st.executeUpdate(sql);
+
+	            return true;
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	            return false;
+	        }finally {
+	        	closeDB();
+	        }	      
+			
+			
+		}
 		
 		public  ArrayList<Room> getAllAvailRooms(){
 			getConn();
@@ -398,6 +532,7 @@ public class  PostgreSqlConn{
 						
 			return hotelChains;
 			
-		}	
+		}
+
 	}
 

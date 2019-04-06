@@ -45,8 +45,7 @@
 			<tr>
 				<td width="20%">Operation</td>
 				<td width="20%"><input type="radio" name="Operation" value="INSERT">INSERT</td>
-				<td width="20%"><input type="radio" name="Operation" value="UPDATE">UPDATE</td>
-				<td width="20%"><input type="radio" name="Operation" value="DELETE">DELETE</td>
+				<td width="20%"><input type="radio" name="Operation" value="UPDATE">UPDATE/DELETE</td>
 			</tr>
 			<tr>
 				<td width="20%">Table</td>
