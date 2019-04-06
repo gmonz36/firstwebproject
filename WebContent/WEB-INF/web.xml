@@ -70,7 +70,7 @@
   <servlet-mapping>
     <servlet-name>AreaSearchServlet</servlet-name>
     <url-pattern>/areaSearch</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>dbUpdate</display-name>

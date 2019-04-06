@@ -250,6 +250,9 @@ public class  PostgreSqlConn{
 				if(!roomCapacity.equals("")) {
 					query+=" AND capacity ='"+roomCapacity+"'";
 				}
+				if(!hotelRoomNbr.equals("")) {
+					query+=" AND hotelNumberOfRooms ='"+hotelRoomNbr+"'";
+				}
 				if(!city.equals("")) {
 					query+=" AND city ='"+city+"'"; 
 				}
@@ -476,5 +479,20 @@ public class  PostgreSqlConn{
 					
 		return Rooms;	
 	}	
+	
+	public boolean deleteCustomer(String SSN){
+		getConn();
+        try{
+        	st = db.createStatement();
+        	sql = "SET search_path = 'eHotel'; DELETE FROM person WHERE SSN= '"+SSN+"'";
+            st.executeUpdate(sql);
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+        	closeDB();
+        }	       
+    }
 }
 
