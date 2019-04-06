@@ -891,7 +891,6 @@ public class  PostgreSqlConn{
 		public  ArrayList<Hotel> getAllHotels(){
 			getConn();
 			
-<<<<<<< HEAD
 			ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 			try {
 				ps = db.prepareStatement("SET search_path = 'eHotel';");
@@ -949,11 +948,8 @@ public class  PostgreSqlConn{
 	    }
 					
 		return Rooms;	
-=======
 		}
-
->>>>>>> Employee
-	}
+	
 	public  ArrayList<Room> getAreaRooms(String state,String city){
 		getConn();
 		
@@ -988,21 +984,6 @@ public class  PostgreSqlConn{
 					
 		return Rooms;	
 	}	
-	
-	public boolean deleteCustomer(String SSN){
-		getConn();
-        try{
-        	st = db.createStatement();
-        	sql = "SET search_path = 'eHotel'; DELETE FROM person WHERE SSN= '"+SSN+"'";
-            st.executeUpdate(sql);
-            return true;
-        }catch(SQLException e){
-            e.printStackTrace();
-            return false;
-        }finally {
-        	closeDB();
-        }	       
-    }
 	
 	public ArrayList<hotelRoomCapacity> getView2(){
 		getConn();
