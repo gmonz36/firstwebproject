@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
 import eHotel.entities.Hotel;
+import eHotel.entities.hotelRoomCapacity;
 
 /**
  * Servlet implementation class CustomerMenuServlet
@@ -41,9 +42,9 @@ public class CustomerMenuServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		PostgreSqlConn con = new PostgreSqlConn();
-		ArrayList<Hotel> hotels = con.getAllHotels();
-		req.setAttribute("allHotels", hotels);
-		req.getRequestDispatcher("hotel_search.jsp").forward(req, resp);
+		ArrayList<hotelRoomCapacity> capacity = con.getView2();
+		req.setAttribute("allHotels", capacity);
+		req.getRequestDispatcher("hotel_capacity_display.jsp").forward(req, resp);
 		return;	
 	}
 

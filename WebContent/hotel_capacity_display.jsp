@@ -1,5 +1,4 @@
-<%@page import="eHotel.entities.Room"%>
-<%@page import="eHotel.entities.Hotel"%>
+<%@page import="eHotel.entities.hotelRoomCapacity"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,19 +9,17 @@
 <title>Hotel rooms capacity</title>
 </head>
 <body>
-				<h4>Here are the room(s) you can book</h4>
+				<h4>Here are the hotel room(s) capacity</h4>
 				<ul>
 					<%
-						Object obj1 = request.getAttribute("allRooms");
-						ArrayList<Room> roomList = null;
+						Object obj1 = request.getAttribute("allHotels");
+					ArrayList<hotelRoomCapacity> roomList = null;
 						if (obj1 instanceof ArrayList) {
-							roomList = (ArrayList<Room>) obj1;
+							roomList = (ArrayList<hotelRoomCapacity>) obj1;
 						}
 						if (roomList != null) {
-							int i = 1;
-							for (Room room : roomList) {
-								System.out.println(i);
-								String str = "Room number "+room.getRoomNumber()+" has capacity for "+room.getCapacity();
+							for (hotelRoomCapacity hotelRoomCapacity : roomList) {
+								String str = "Hotel "+hotelRoomCapacity.getHotelName()+" from the chain "+hotelRoomCapacity.getChainName()+" has capacity for "+hotelRoomCapacity.getCapacity();
 					%>
 					<li><%=str%></li>
 					<%
@@ -30,6 +27,6 @@
 						}
 					%>
 				</ul>
-<button onclick="location.href='customer_menu.jsp'">exit</button>
+<button onclick="location.href='index.html'">exit</button>
 </body>
 </html>

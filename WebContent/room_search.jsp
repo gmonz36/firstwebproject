@@ -52,6 +52,5 @@ maximum price:<input type="text" id="price" name="price"><br><br>
 <button type="submit" value="submit" onclick="return validate();">search</button>
 </form>
 
-
 </body>
 </html>

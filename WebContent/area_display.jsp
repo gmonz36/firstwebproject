@@ -1,5 +1,4 @@
-<%@page import="eHotel.entities.Room"%>
-<%@page import="eHotel.entities.Hotel"%>
+<%@page import="eHotel.entities.Area"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,50 +9,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		Integer numberOfRooms = (Integer) request.getAttribute("numberOfRooms");
-	%>
-				<h4>There are <%=numberOfRooms%> rooms available in this area</h4>
+				<h4>Here are the number of room(s) available per area</h4>
 				<ul>
 					<%
 						Object obj1 = request.getAttribute("allRooms");
-						ArrayList<Room> roomList = null;
+					ArrayList<Area> areaList = null;
 						if (obj1 instanceof ArrayList) {
-							roomList = (ArrayList<Room>) obj1;
+							areaList = (ArrayList<Area>) obj1;
 						}
-						if (roomList != null) {
-							int i = 1;
-							for (Room room : roomList) {
-								System.out.println(i);
-								String str = "-------- Room option "+i+"--------";
-								String chain = "Chain name: "+room.getchainName();
-								String hotel = "Hotel name: "+room.gethotelName();
-								String number = "Room number: "+room.getRoomNumber();
-								String price = "Price: "+room.getPrice()+"$";
-								String capacity = "Capacity: "+room.getCapacity();
-								String view = "View: "+room.getView();
-								String extendable = "Extendable: ";
-								if(room.isExtendable()){
-									extendable+="Yes";
-								} else { extendable+="No"; }
-								String problems = "Problems description: "+room.getProblems();
-								i++;
-								//TODO also add amenities
-					%>
+						if (areaList != null) {
+							for (Area area : areaList) {
+								String str;
+								if(area.getNumberOfRooms()==null){
+									str = "The city "+area.getCity()+" from "+area.getState()+" has no room(s) available";
+								} else {
+									str = "The city "+area.getCity()+" from "+area.getState()+" has "+area.getNumberOfRooms()+" room(s) available";
+								}
+					%>           
 					<li><%=str%></li>
-					<li><%=chain%></li>
-					<li><%=hotel%></li>
-					<li><%=number%></li>
-					<li><%=price%></li>
-					<li><%=capacity%></li>
-					<li><%=view%></li>
-					<li><%=extendable%></li>
-					<li><%=problems%></li>
 					<%
 						}
 						}
 					%>
 				</ul>
-<button onclick="location.href='customer_menu.jsp'">quit</button>
+<button onclick="location.href='index.html'">quit</button>
 </body>
 </html>

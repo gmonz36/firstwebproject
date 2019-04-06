@@ -38,7 +38,9 @@
 	<form method="post" action="hotelCapacity">
 				<button type="submit" value="submit">view rooms capacity for an hotel</button>
 	</form>
-	<button onclick="location.href='area_search.jsp'">view available rooms per area</button>
+	<form method="post" action="areaSearch">
+		<button type="submit" value="submit">view available rooms per area</button>
+	</form>
 	<form method="post" action="deleteCustomer">
 				<input type="hidden" name="custSSN" value="<%=custSSN%>" />
 				<button type="submit" value="submit" onclick="return confirm('delete?');">delete your account</button>

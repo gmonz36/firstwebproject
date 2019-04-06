@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
+import eHotel.entities.Area;
 import eHotel.entities.Room;
 
 /**
@@ -44,9 +45,8 @@ public class AreaSearchServlet extends HttpServlet {
 		PostgreSqlConn con = new PostgreSqlConn();
 		String state = req.getParameter("state");
 		String city = req.getParameter("city");
-		ArrayList<Room> rooms = con.getAreaRooms(state,city);
-		req.setAttribute("allRooms", rooms);
-		req.setAttribute("numberOfRooms", rooms.size());
+		ArrayList<Area> areas = con.getView1();
+		req.setAttribute("allRooms", areas);
 		req.getRequestDispatcher("area_display.jsp").forward(req, resp);
 		return;	
 	}

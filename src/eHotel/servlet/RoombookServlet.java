@@ -35,7 +35,7 @@ public class RoombookServlet extends HttpServlet {
 		req.setAttribute("bookedRooms", bookedRooms);
 		req.setAttribute("custSSN", custSSN);
 		
-		resp.sendRedirect("customer_menu.jsp");
+		req.getRequestDispatcher("customer_menu.jsp").forward(req, resp);
 		return;
 	}
 }

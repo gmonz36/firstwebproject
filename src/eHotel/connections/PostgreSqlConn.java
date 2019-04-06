@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import eHotel.entities.Area;
 import eHotel.entities.Hotel;
 import eHotel.entities.HotelChain;
 import eHotel.entities.Room;
-import eHotel.entities.booking; 
+import eHotel.entities.booking;
+import eHotel.entities.hotelRoomCapacity; 
 
 
 public class  PostgreSqlConn{
@@ -490,6 +492,54 @@ public class  PostgreSqlConn{
         }catch(SQLException e){
             e.printStackTrace();
             return false;
+        }finally {
+        	closeDB();
+        }	       
+    }
+	
+	public ArrayList<hotelRoomCapacity> getView2(){
+		getConn();
+        try{
+        	st = db.createStatement();
+        	sql = "SET search_path = 'eHotel';";
+            st.executeUpdate(sql);
+            
+            st = db.createStatement();
+        	sql = "SELECT * FROM hotelRoomsCapacity;";
+            rs = st.executeQuery(sql);
+            
+            ArrayList<hotelRoomCapacity> capacity = new ArrayList<hotelRoomCapacity>();
+            while(rs.next()) {
+            	capacity.add(new hotelRoomCapacity(rs.getString("chainName"),rs.getString("hotelName"),rs.getString("capacity")));
+            }
+            return capacity;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }finally {
+        	closeDB();
+        }	       
+    }
+	
+	public ArrayList<Area> getView1(){
+		getConn();
+        try{
+        	st = db.createStatement();
+        	sql = "SET search_path = 'eHotel';";
+            st.executeUpdate(sql);
+            
+            st = db.createStatement();
+        	sql = "SELECT * FROM areaRooms;";
+            rs = st.executeQuery(sql);
+            
+            ArrayList<Area> areaRooms = new ArrayList<Area>();
+            while(rs.next()) {
+            	areaRooms.add(new Area(rs.getString("state"),rs.getString("city"),rs.getString("sum")));
+            }
+            return areaRooms;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
         }finally {
         	closeDB();
         }	       
