@@ -848,7 +848,8 @@ public class  PostgreSqlConn{
 					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
 					String checkInDate = rs.getString("checkInDate");
 					String checkOutDate = rs.getString("checkOutDate");
-					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate);
+					String bookingid = rs.getString("bookingID");
+					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate, bookingid);
 					bookings.add(booking);
 				}
 				for(booking booking: bookings) {
@@ -878,12 +879,11 @@ public class  PostgreSqlConn{
 		}
 		
 
-		public  ArrayList<Room> getbookedRooms(String custSSN, String hotelname, String chainname){
+		public  ArrayList<booking> getBookingsforCheckin(String custSSN, String hotelname, String chainname){
 			//TODO fix this query to query more information from the bookings
 			
 			getConn();
 			
-			ArrayList<Room> Rooms = new ArrayList<Room>();
 			ArrayList<booking> bookings = new ArrayList<booking>();
 			try {
 				ps = db.prepareStatement("SET search_path = 'eHotel'");
@@ -896,32 +896,43 @@ public class  PostgreSqlConn{
 					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
 					String checkInDate = rs.getString("checkInDate");
 					String checkOutDate = rs.getString("checkOutDate");
-					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate);
+					String bookingid = rs.getString("bookingID");
+					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate,bookingid);
 					bookings.add(booking);
-				}
-				for(booking booking: bookings) {
-					ps = db.prepareStatement("select * from room where chainName='"+booking.getchainName()
-											+"' AND hotelName='"+booking.gethotelName()+"' AND roomNumber='"
-											+booking.getRoomNumber()+"'");
-					rs = ps.executeQuery();
-					rs.next();
-					String chainName = rs.getString("chainName");
-					String hotelName = rs.getString("hotelName");
-					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
-					float price = Float.parseFloat(rs.getString("price"));
-					String capacity = rs.getString("capacity");
-					String view = rs.getString("view");
-					boolean extendable = Boolean.parseBoolean(rs.getString("extendable"));
-					String problems = rs.getString("problems");
-					Room room = new Room(chainName,hotelName,roomNumber,price,capacity,view,extendable,problems);
-					Rooms.add(room);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 	        	closeDB();
 	        }
-			return Rooms;
+			return bookings;
+			
+		}
+		
+		public  booking getBookingbyID(String bookingid){
+			//TODO fix this query to query more information from the bookings
+			
+			getConn();
+			booking bookings = null;
+			try {
+				ps = db.prepareStatement("SET search_path = 'eHotel'");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from booking where bookingid='"+bookingid+"'");
+				rs = ps.executeQuery();
+				rs.next();
+				String chainName = rs.getString("chainName");
+				String hotelName = rs.getString("hotelName");
+				int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
+				String checkInDate = rs.getString("checkInDate");
+				String checkOutDate = rs.getString("checkOutDate");
+				bookings = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate,bookingid);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	        	closeDB();
+	        }
+			return bookings;
 			
 		}
 		

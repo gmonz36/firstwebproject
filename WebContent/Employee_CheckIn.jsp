@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="eHotel.entities.Room"%>
 <%@page import="eHotel.entities.HotelChain"%>
+<%@page import="eHotel.entities.booking"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,23 +17,23 @@
 	<%
 		String custSSN = (String) request.getAttribute("SSN");
 	%>
-				<h4>Here are the room(s) you booked</h4>
+				<h4>Here are the customer's booked room(s)</h4>
 				<ul>
 					<%
-						Object obj1 = request.getAttribute("bookedRooms");
-						ArrayList<Room> broomList = null;
+						Object obj1 = request.getAttribute("bookings");
+						ArrayList<booking> broomList = null;
 						if (obj1 instanceof ArrayList) {
-							broomList = (ArrayList<Room>) obj1;
+							broomList = (ArrayList<booking>) obj1;
 						}
 						if (broomList != null) {
 							int i=1;
-							for (Room room : broomList) {
-								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+" in "+room.gethotelName();
+							for (booking bookings : broomList) {
+								String roominfo = "Room number "+Integer.toString(bookings.getRoomNumber())+" in "+bookings.gethotelName();
 								i++;
 					%>
 					<li><%=roominfo%></li>
 					<li class="no-bullet">
-					<button id='submit-<%=i%>' type="submit" name='submit' value="<%=room.getchainName()%>--<%=room.gethotelName()%>--<%=room.getRoomNumber()%>" onclick="return confirm('Check-in?');">Check-in</button>
+					<button id='submit-<%=i%>' type="submit" name='bookingID' value="<%=bookings.getBookingID()%>" onclick="return confirm('Check-in?');">Check-in</button>
 					</li>
 					<%
 						}
