@@ -11,7 +11,7 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/emplogin</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>checkin</display-name>
     <servlet-name>checkinServlet</servlet-name>
@@ -19,8 +19,21 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>checkinServlet</servlet-name>
-    <url-pattern>/checkin</url-pattern>
+    <url-pattern>/empcheckin</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>payment</display-name>
+    <servlet-name>paymentServlet</servlet-name>
+    <servlet-class>eHotel.servlet.RentingPaymentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>paymentServlet</servlet-name>
+    <url-pattern>/payRent</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>displayHotel</display-name>
@@ -101,7 +114,7 @@
     <servlet-name>dbUpdate2Servlet</servlet-name>
     <url-pattern>/dbUpdate2</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>dbUpdate3</display-name>
     <servlet-name>dbUpdate3Servlet</servlet-name>
@@ -160,7 +173,7 @@
   <servlet-mapping>
     <servlet-name>customerDeleteServlet</servlet-name>
     <url-pattern>/deleteCustomer</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

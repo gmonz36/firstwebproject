@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
+import eHotel.entities.Renting;
 import eHotel.entities.Room;
 import eHotel.entities.booking;
 
@@ -44,6 +45,12 @@ public class EmployeeMenuServlet extends HttpServlet {
 			
 			ArrayList<booking> bookedRooms = con.getBookingsforCheckin(customerSSN, (String)session.getAttribute("hotelname"),(String)session.getAttribute("chainname"));
 			req.setAttribute("bookings", bookedRooms);
+			req.setAttribute("SSN", customerSSN);
+			
+
+			ArrayList<Renting> rentedRooms = con.getRentedRooms(customerSSN,(String)session.getAttribute("chainname"),(String)session.getAttribute("hotelname"));
+			System.out.println(rentedRooms.size());
+			req.setAttribute("rentings", rentedRooms);
 			req.setAttribute("SSN", customerSSN);
 			
 			

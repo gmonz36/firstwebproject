@@ -12,6 +12,7 @@ import eHotel.entities.Hotel;
 import eHotel.entities.HotelChain;
 import eHotel.entities.Room;
 import eHotel.entities.booking;
+import eHotel.entities.Renting;
 import eHotel.entities.hotelRoomCapacity; 
 
 
@@ -57,6 +58,24 @@ public class  PostgreSqlConn{
 					e.printStackTrace();
 				}
 		}
+		
+		public void payRent(String rentingID){
+			getConn();
+
+			
+	        try{
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("Update renting SET paymentstatus='paid' WHERE rentingID="+"'"+rentingID+"'");	               
+	            rs = ps.executeQuery();
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }    
+	    }
 		
 		public String[] getEmployeeBySSN(String ssn){
 			getConn();
@@ -881,6 +900,38 @@ public class  PostgreSqlConn{
 		}
 		
 
+		public  ArrayList<Renting> getRentedRooms(String custSSN, String chainname, String hotelname){
+			//TODO fix this query to query more information from the bookings
+			
+			getConn();
+			
+			ArrayList<Renting> rentings = new ArrayList<Renting>();
+			try {
+				ps = db.prepareStatement("SET search_path = 'eHotel'");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from renting where SSN='"+custSSN+"' and chainname='"+ chainname +"' and hotelname='" + hotelname + "' and paymentstatus='pending'");
+				rs = ps.executeQuery();
+				while(rs.next()){
+					String chainName = rs.getString("chainName");
+					String hotelName = rs.getString("hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
+					String checkInDate = rs.getString("checkInDate");
+					String checkOutDate = rs.getString("checkOutDate");
+					String rentingid = rs.getString("rentingID");
+					String payment = rs.getString("paymentstatus");
+					Renting renting = new Renting(chainName, hotelName,roomNumber,checkInDate,checkOutDate, rentingid,payment);
+					rentings.add(renting);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	        	closeDB();
+	        }
+			return rentings;
+			
+		}
+		
+
 		public  ArrayList<booking> getBookingsforCheckin(String custSSN, String hotelname, String chainname){
 			//TODO fix this query to query more information from the bookings
 			
@@ -900,7 +951,13 @@ public class  PostgreSqlConn{
 					String checkOutDate = rs.getString("checkOutDate");
 					String bookingid = rs.getString("bookingID");
 					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate,bookingid);
-					bookings.add(booking);
+
+					ps = db.prepareStatement("select * from check_in where bookingID='" + bookingid + "'");
+					rs = ps.executeQuery();
+					if (rs.next()) {
+					}else {
+						bookings.add(booking);
+					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -949,6 +1006,30 @@ public class  PostgreSqlConn{
 	        	}
 	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO booking VALUES ('"+chainName+"', '"+hotelName+"', '"+roomNumber+"', '"+SSN+"', '"+bookingID+"', '"+startDate+"', '"+endDate+"')");
 				ps.executeUpdate();
+	        }catch(SQLException e){
+	            e.printStackTrace(); 
+	        }finally {
+	        	closeDB();
+	        }		      
+	    }
+		
+
+		public void rentRoom(booking book, String ssn){
+			getConn();
+			
+	        try{
+	        	String rentingID = "";
+	        	Random random = new Random();
+	        	for(int i=0;i<10;i++) {
+	        		rentingID+=random.nextInt(9);
+	        	}
+	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO renting VALUES ('"+book.getchainName()+"', '"+book.gethotelName()+"', '"+book.getRoomNumber()+"', '"+ssn+"', '"+rentingID+"','pending','"+book.getCheckInDate()+"', '"+book.getCheckOutDate()+"')");
+				ps.executeUpdate();
+				
+
+	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO check_in VALUES ('"+book.getBookingID()+"', '"+rentingID+"')");
+				ps.executeUpdate();
+				
 	        }catch(SQLException e){
 	            e.printStackTrace(); 
 	        }finally {
