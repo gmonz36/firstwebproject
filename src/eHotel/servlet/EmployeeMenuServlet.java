@@ -44,12 +44,12 @@ public class EmployeeMenuServlet extends HttpServlet {
 		if (customer[0]!=null) {			
 			
 			ArrayList<booking> bookedRooms = con.getBookingsforCheckin(customerSSN, (String)session.getAttribute("hotelname"),(String)session.getAttribute("chainname"));
+			System.out.println(bookedRooms.size());
 			req.setAttribute("bookings", bookedRooms);
 			req.setAttribute("SSN", customerSSN);
 			
 
 			ArrayList<Renting> rentedRooms = con.getRentedRooms(customerSSN,(String)session.getAttribute("chainname"),(String)session.getAttribute("hotelname"));
-			System.out.println(rentedRooms.size());
 			req.setAttribute("rentings", rentedRooms);
 			req.setAttribute("SSN", customerSSN);
 			

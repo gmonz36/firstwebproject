@@ -13,6 +13,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>RoomSearchRent</display-name>
+    <servlet-name>RoomSearchRentServlet</servlet-name>
+    <servlet-class>eHotel.servlet.RoomSearchRentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomSearchRentServlet</servlet-name>
+    <url-pattern>/searchRoom</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>checkin</display-name>
     <servlet-name>checkinServlet</servlet-name>
     <servlet-class>eHotel.servlet.EmployeeCheckinServlet</servlet-class>
@@ -21,7 +31,6 @@
     <servlet-name>checkinServlet</servlet-name>
     <url-pattern>/empcheckin</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>payment</display-name>
@@ -32,8 +41,6 @@
     <servlet-name>paymentServlet</servlet-name>
     <url-pattern>/payRent</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <description></description>
     <display-name>displayHotel</display-name>
@@ -164,6 +171,18 @@
     <servlet-name>RoomSearchServlet</servlet-name>
     <url-pattern>/roomSearch</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>roomRent</display-name>
+    <servlet-name>RoomRentServlet</servlet-name>
+    <servlet-class>eHotel.servlet.RoomrentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomRentServlet</servlet-name>
+    <url-pattern>/roomrent</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>deleteCustomer</display-name>

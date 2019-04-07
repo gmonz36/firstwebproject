@@ -45,6 +45,7 @@ Room capacity:<input type="text" id="roomCapacity" name="roomCapacity"><br><br>
 State:<input type="text" id="state" name="state"><br><br>
 City:<input type="text" id="city" name="city"><br><br>
 Hotel chain:<input type="text" id="hotelChain" name="hotelChain"><br><br>
+Hotel:<input type="text" id="hotelName" name="hotelName"><br><br>
 category:<input type="text" id="category" name="category"><br><br>
 hotel total number of room:<input type="text" id="hotelRoomNbr" name="hotelRoomNbr"><br><br>
 maximum price:<input type="text" id="price" name="price"><br><br>

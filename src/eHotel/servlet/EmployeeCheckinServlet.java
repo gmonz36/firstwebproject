@@ -1,6 +1,8 @@
 package eHotel.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
+import eHotel.entities.Renting;
+import eHotel.entities.Room;
 import eHotel.entities.booking;
 
 /**
@@ -33,7 +37,15 @@ public class EmployeeCheckinServlet extends HttpServlet {
 		con.rentRoom(book, ssn);
 		
 
-		req.getRequestDispatcher("Employee_menu.jsp").forward(req, resp);
+		ArrayList<Room> bookedRooms = con.getbookedRooms(ssn);
+		req.setAttribute("bookedRooms", bookedRooms);
+		req.setAttribute("custSSN", ssn);		
+
+		ArrayList<Renting> rentedRooms = con.getRentedRooms(ssn,(String)session.getAttribute("chainname"),(String)session.getAttribute("hotelname"));
+		req.setAttribute("rentings", rentedRooms);
+		req.setAttribute("SSN", ssn);
+
+		req.getRequestDispatcher("Employee_CheckIn.jsp").forward(req, resp);
 		
 		
 		

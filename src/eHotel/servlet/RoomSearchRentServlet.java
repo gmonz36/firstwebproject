@@ -17,14 +17,14 @@ import eHotel.entities.Room;
 /**
  * Servlet implementation class RoomSearch
  */
-@WebServlet("/RoomSearch")
-public class RoomSearchServlet extends HttpServlet {
+@WebServlet("/RoomSearchRent")
+public class RoomSearchRentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RoomSearchServlet() {
+    public RoomSearchRentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,24 +44,20 @@ public class RoomSearchServlet extends HttpServlet {
 		
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
+		String chainname = (String)session.getAttribute("chainname");
+		String hotelname = (String)session.getAttribute("hotelname");
 		String roomCapacity = req.getParameter("roomCapacity");
-		String state = req.getParameter("state");
-		String city = req.getParameter("city");
-		String hotelChain = req.getParameter("hotelChain");
-		String hotelName = req.getParameter("hotelName");
-		String category = req.getParameter("category");
-		String hotelRoomNbr = req.getParameter("hotelRoomNbr");
 		String price = req.getParameter("price");
 		String custSSN = req.getParameter("custSSN");
 		PostgreSqlConn con = new PostgreSqlConn();
-		ArrayList<Room> searchedRooms = con.getSearchedRooms(startDate,endDate,roomCapacity,state,city,hotelChain,hotelName,category,hotelRoomNbr,price);
+		ArrayList<Room> searchedRooms = con.getSearchedRooms(startDate,endDate,roomCapacity,"","",chainname,hotelname,"","",price);
 			
 		req.setAttribute("allRooms", searchedRooms);
 		req.setAttribute("startDate", startDate);
 		req.setAttribute("endDate", endDate);
 		req.setAttribute("custSSN", custSSN);
 
-		req.getRequestDispatcher("booking.jsp").forward(req, resp);
+		req.getRequestDispatcher("renting.jsp").forward(req, resp);
 		return;
 	}
 }

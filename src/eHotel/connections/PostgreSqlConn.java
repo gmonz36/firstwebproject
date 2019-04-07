@@ -793,7 +793,7 @@ public class  PostgreSqlConn{
 			return Rooms;	
 		}
 		
-		public  ArrayList<Room> getSearchedRooms(String startDate,String endDate,String roomCapacity,String state,String city,String hotelChain,String category,String hotelRoomNbr,String price){
+		public  ArrayList<Room> getSearchedRooms(String startDate,String endDate,String roomCapacity,String state,String city,String hotelChain, String hotelname, String category,String hotelRoomNbr,String price){
 			getConn();
 			
 			ArrayList<Room> Rooms = new ArrayList<Room>();
@@ -818,6 +818,9 @@ public class  PostgreSqlConn{
 				}
 				if(!hotelChain.equals("")) {
 					query+=" AND room.chainName ='"+hotelChain+"'"; 
+				}
+				if(!hotelname.equals("")) {
+					query+=" AND room.hotelName ='"+hotelname+"'"; 
 				}
 				if(!category.equals("")) {
 					query+=" AND starrating ='"+category+"'";
@@ -942,6 +945,7 @@ public class  PostgreSqlConn{
 				ps = db.prepareStatement("SET search_path = 'eHotel'");
 				ps.executeUpdate();
 				ps = db.prepareStatement("select * from booking where SSN='"+custSSN+"' and chainname='"+ chainname +"' and hotelname='" + hotelname + "' and checkindate<=now() and checkoutdate>= now()");
+				System.out.println(custSSN + chainname + hotelname);
 				rs = ps.executeQuery();
 				while(rs.next()){
 					String chainName = rs.getString("chainName");
@@ -952,9 +956,9 @@ public class  PostgreSqlConn{
 					String bookingid = rs.getString("bookingID");
 					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate,bookingid);
 
-					ps = db.prepareStatement("select * from check_in where bookingID='" + bookingid + "'");
-					rs = ps.executeQuery();
-					if (rs.next()) {
+					PreparedStatement ps2 = db.prepareStatement("select * from check_in where bookingID='" + bookingid + "'");
+					ResultSet rs2 = ps2.executeQuery();
+					if (rs2.next()) {
 					}else {
 						bookings.add(booking);
 					}
@@ -1029,6 +1033,26 @@ public class  PostgreSqlConn{
 
 	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO check_in VALUES ('"+book.getBookingID()+"', '"+rentingID+"')");
 				ps.executeUpdate();
+				
+	        }catch(SQLException e){
+	            e.printStackTrace(); 
+	        }finally {
+	        	closeDB();
+	        }		      
+	    }
+		
+		public void rentRoom(String chainName, String hotelName, String roomNumber, String ssn, String checkInDate, String checkOutDate){
+			getConn();
+			
+	        try{
+	        	String rentingID = "";
+	        	Random random = new Random();
+	        	for(int i=0;i<10;i++) {
+	        		rentingID+=random.nextInt(9);
+	        	}
+	        	ps = db.prepareStatement("SET search_path = 'eHotel'; INSERT INTO renting VALUES ('"+chainName+"', '"+hotelName+"', '"+roomNumber+"', '"+ssn+"', '"+rentingID+"','pending','"+checkInDate+"', '"+checkOutDate+"')");
+				ps.executeUpdate();
+				
 				
 	        }catch(SQLException e){
 	            e.printStackTrace(); 

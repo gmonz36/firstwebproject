@@ -73,5 +73,17 @@
 				
 		<input type="hidden" name="SSN" value=<%=request.getAttribute("SSN")%> />		
 	</form>
+	
+	<form method="post" action="searchRoom">
+	
+				<h4>Rent a new room</h4> 
+					<button id='submit' type="submit" name='submit' onclick="return true;">Find Room</button> <br><br>
+Start date(YYYY-MM-DD) *required:<input type="text" id="startDate" name="startDate"><br><br>
+End date(YYYY-MM-DD) *required:<input type="text" id="endDate" name="endDate"><br><br>
+Room capacity:<input type="text" id="roomCapacity" name="roomCapacity"><br><br>
+maximum price:<input type="text" id="price" name="price"><br><br>
+		<input type="hidden" name="custSSN" value=<%=request.getAttribute("SSN")%> />		
+	</form>
+	
 </body>
 </html>
