@@ -753,22 +753,24 @@ public class  PostgreSqlConn{
 				if(!roomCapacity.equals("")) {
 					query+=" AND capacity ='"+roomCapacity+"'";
 				}
+				if(!state.equals("")) {
+					query+=" AND state  ='"+state+"'";
+				}
 				if(!hotelRoomNbr.equals("")) {
-					query+=" AND hotelNumberOfRooms ='"+hotelRoomNbr+"'";
+					query+=" AND numberOfRooms ='"+hotelRoomNbr+"'";
 				}
 				if(!city.equals("")) {
 					query+=" AND city ='"+city+"'"; 
 				}
 				if(!hotelChain.equals("")) {
-					query+=" AND chainName ='"+hotelChain+"'"; 
+					query+=" AND room.chainName ='"+hotelChain+"'"; 
 				}
 				if(!category.equals("")) {
-					query+=" AND category ='"+category+"'";
+					query+=" AND starrating ='"+category+"'";
 				}
 				if(!price.equals("")) {
-					query+=" AND price  ='"+price+"'";
+					query+=" AND price  <='"+price+"'";
 				}
-				//TODO implement search criteria for hotel total number of room
 				ps = db.prepareStatement(query);
 				rs = ps.executeQuery();
 				

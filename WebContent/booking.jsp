@@ -60,7 +60,6 @@
 								} else { extendable+="No"; }
 								String problems = "Problems description: "+room.getProblems();
 								i++;
-								//TODO also add amenities
 					%>
 					<li class="no-bullet"><%=str%></li>
 					<li><%=chain%></li>
