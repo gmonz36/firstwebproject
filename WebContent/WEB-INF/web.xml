@@ -11,6 +11,16 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/emplogin</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>checkin</display-name>
+    <servlet-name>checkinServlet</servlet-name>
+    <servlet-class>eHotel.servlet.EmployeeCheckinServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>checkinServlet</servlet-name>
+    <url-pattern>/checkin</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>displayHotel</display-name>

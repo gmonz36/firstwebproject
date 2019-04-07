@@ -12,6 +12,7 @@
 </head>
 <body>
 
+	<form method="post" action="checkin">
 	<%
 		String custSSN = (String) request.getAttribute("SSN");
 	%>
@@ -24,14 +25,20 @@
 							broomList = (ArrayList<Room>) obj1;
 						}
 						if (broomList != null) {
+							int i=1;
 							for (Room room : broomList) {
 								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+" in "+room.gethotelName();
+								i++;
 					%>
 					<li><%=roominfo%></li>
+					<li class="no-bullet">
+					<button id='submit-<%=i%>' type="submit" name='submit' value="<%=room.getchainName()%>--<%=room.gethotelName()%>--<%=room.getRoomNumber()%>" onclick="return confirm('Check-in?');">Check-in</button>
+					</li>
 					<%
 						}
 						}
 					%>
-				</ul>
+				</ul>				
+	</form>
 </body>
 </html>

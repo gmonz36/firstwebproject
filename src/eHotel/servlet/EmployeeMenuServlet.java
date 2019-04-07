@@ -1,7 +1,6 @@
 package eHotel.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -42,8 +41,7 @@ public class EmployeeMenuServlet extends HttpServlet {
 		String[] customer = con.getuserinforbycustSSN(customerSSN);
 		if (customer[0]!=null) {			
 			
-			System.out.println(session.getAttribute("chainname"));
-			ArrayList<Room> bookedRooms = con.getbookedRooms(customerSSN, (String)session.getAttribute("hotelname"),(String)session.getAttribute("chainname"), LocalDate.now());
+			ArrayList<Room> bookedRooms = con.getbookedRooms(customerSSN, (String)session.getAttribute("hotelname"),(String)session.getAttribute("chainname"));
 			req.setAttribute("bookedRooms", bookedRooms);
 			req.setAttribute("SSN", customerSSN);
 			
@@ -51,7 +49,6 @@ public class EmployeeMenuServlet extends HttpServlet {
 			req.getRequestDispatcher("Employee_CheckIn.jsp").forward(req, resp);
 			return;
 		}
-		System.out.println("test");
 		resp.sendRedirect("login_failure.jsp");
 		return;
 	}

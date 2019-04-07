@@ -878,7 +878,7 @@ public class  PostgreSqlConn{
 		}
 		
 
-		public  ArrayList<Room> getbookedRooms(String custSSN, String hotelname, String chainname, LocalDate date){
+		public  ArrayList<Room> getbookedRooms(String custSSN, String hotelname, String chainname){
 			//TODO fix this query to query more information from the bookings
 			
 			getConn();
@@ -888,7 +888,7 @@ public class  PostgreSqlConn{
 			try {
 				ps = db.prepareStatement("SET search_path = 'eHotel'");
 				ps.executeUpdate();
-				ps = db.prepareStatement("select * from booking where SSN='"+custSSN+"'");
+				ps = db.prepareStatement("select * from booking where SSN='"+custSSN+"' and chainname='"+ chainname +"' and hotelname='" + hotelname + "' and checkindate<=now() and checkoutdate>= now()");
 				rs = ps.executeQuery();
 				while(rs.next()){
 					String chainName = rs.getString("chainName");
