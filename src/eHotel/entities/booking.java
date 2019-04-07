@@ -6,19 +6,25 @@ public class booking {
 	int roomNumber;
 	String checkInDate;
 	String checkOutDate;
+	String bookingid;
 	
 	public booking(String chainName, String hotelName, int roomNumber, String checkInDate,
-			String checkOutDate) {
+			String checkOutDate, String bookingid) {
 		super();
 		this.chainName = chainName;
 		this.hotelName = hotelName;
 		this.roomNumber = roomNumber;
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
+		this.bookingid=bookingid;
 	}
 
 	public String getchainName() {
 		return chainName;
+	}
+	
+	public String getBookingID() {
+		return bookingid;
 	}
 
 	public void setchainName(String chainName) {

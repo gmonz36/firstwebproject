@@ -37,7 +37,6 @@ public class EmployeeMenu2Servlet extends HttpServlet {
 		PostgreSqlConn con = new PostgreSqlConn();
 		String position = con.getPositionbyUname((String) req.getParameter("username"));		
 
-		System.out.println(position);
 
 		if (position.equals("Manager")) {			
 			

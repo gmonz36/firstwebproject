@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import eHotel.connections.PostgreSqlConn;
+import eHotel.entities.booking;
+
 /**
  * Servlet implementation class EmployeeCheckinServlet
  */
@@ -21,6 +24,12 @@ public class EmployeeCheckinServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
+
+		PostgreSqlConn con = new PostgreSqlConn();
+		booking book = con.getBookingbyID((String)req.getAttribute("bookingID"));
+		
+		
+		
 		
 		
 		return;	

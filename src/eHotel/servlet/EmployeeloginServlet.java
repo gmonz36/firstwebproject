@@ -23,6 +23,7 @@ public class EmployeeloginServlet extends HttpServlet {
 //		employee account = new employee();
 		String username = req.getParameter("username");
 		String pwd = req.getParameter("pwd");
+
 		
 		PostgreSqlConn con = new PostgreSqlConn();
 		String pwdfromdb = con.getpwdbyUname(username);
@@ -31,6 +32,11 @@ public class EmployeeloginServlet extends HttpServlet {
 		if (pwd.equals(pwdfromdb)) {			
 				System.out.println("success");
 				req.setAttribute("employee_id", username);
+				
+				String[] hotel=con.getHotelbyUname(username);
+
+				session.setAttribute("chainname", hotel[0]);
+				session.setAttribute("hotelname", hotel[1]);
 				
 				req.getRequestDispatcher("Employee_menu.jsp").forward(req, resp);
 				return;			

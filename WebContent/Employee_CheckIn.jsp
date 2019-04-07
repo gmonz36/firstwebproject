@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="eHotel.entities.Room"%>
+<%@page import="eHotel.entities.HotelChain"%>
+<%@page import="eHotel.entities.booking"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,45 +13,33 @@
 </head>
 <body>
 
-		<form method="post" action="checkin">
-<ul>
-
+	<form method="post" action="checkin">
+	<%
+		String custSSN = (String) request.getAttribute("SSN");
+	%>
+				<h4>Here are the customer's booked room(s)</h4>
+				<ul>
 					<%
-					if (request.getAttribute("chainname") != null){
-					
-					String message = "The following room has been booked for today:";
-					String chainname= (String) request.getAttribute("chainname");
-					String hotelname=(String)request.getAttribute("hotelname");
-					String roomnumber=(String)request.getAttribute("roomnumber");
-					String customerSSN=(String)request.getAttribute("customerSSN");
-					String bookingID=(String)request.getAttribute("bookingid");
-					String CheckInDate=(String)request.getAttribute("checkindate");
-					String CheckOutDate =(String)request.getAttribute("checkoutdate");					
-						%>
-					<li><%=message%></li>
-					<li><%=chainname%></li>
-					<li><%=hotelname%></li>
-					<li><%=roomnumber%></li>
-					<li><%=customerSSN%></li>
-					<li><%=bookingID%></li>
-					<li><%=CheckInDate%></li>
-					<li><%=CheckOutDate%></li>
-					
-		
-					<% } 
-					else{
-						
-					}
+						Object obj1 = request.getAttribute("bookings");
+						ArrayList<booking> broomList = null;
+						if (obj1 instanceof ArrayList) {
+							broomList = (ArrayList<booking>) obj1;
+						}
+						if (broomList != null) {
+							int i=1;
+							for (booking bookings : broomList) {
+								String roominfo = "Room number "+Integer.toString(bookings.getRoomNumber())+" in "+bookings.gethotelName();
+								i++;
 					%>
-					
-				</ul>
-				
-		Perform Check-in on Customer SSN:<input type="text" id="SSN" name="customerSSN"><br>
-		<button type="submit" value="submit" onclick="return validate();">Submit</button>
-		<br>
-		<br>
-		
-	
+					<li><%=roominfo%></li>
+					<li class="no-bullet">
+					<button id='submit-<%=i%>' type="submit" name='bookingID' value="<%=bookings.getBookingID()%>" onclick="return confirm('Check-in?');">Check-in</button>
+					</li>
+					<%
+						}
+						}
+					%>
+				</ul>				
 	</form>
 </body>
 </html>
