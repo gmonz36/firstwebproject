@@ -1,6 +1,7 @@
 package eHotel.connections;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -398,6 +399,33 @@ public class  PostgreSqlConn{
 			return position;       
 	    }
 		
+
+		public String[] getHotelbyUname(String param){
+			getConn();
+
+			String hotel[] = new String[2];
+			
+	        try{
+
+	        	ps = db.prepareStatement("SET search_path = 'eHotel';");
+	        	ps.executeUpdate();
+	        	
+	            ps = db.prepareStatement("select chainname,hotelname from employee where username=?");	            
+	            ps.setString(1, param);	   
+	            rs = ps.executeQuery();
+				rs.next();
+				hotel[0] = rs.getString("chainname");
+				hotel[1] = rs.getString("hotelname");
+				
+	            
+	        }catch(SQLException e){
+	            e.printStackTrace();
+	        }finally {
+	        	closeDB();
+	        }
+			return hotel;       
+	    }
+		
 		public String[] getuserinforbycustSSN(String ssn){
 			getConn();
 
@@ -432,7 +460,7 @@ public class  PostgreSqlConn{
 	        	ps.executeUpdate();
 	        	
 	            ps = db.prepareStatement("select * from Booking where checkindate<=now() and checkoutdate>= now()"
-	            		+ "and customer_SSN=?");	               
+	            		+ "and SSN=?");	               
 	            ps.setString(1, ssn);	              
 	            rs = ps.executeQuery();
 	            
@@ -658,9 +686,16 @@ public class  PostgreSqlConn{
 	            ps = db.prepareStatement("UPDATE employee SET position=?, username=?, password=?"
 	            		+ "where chainname=? and hotelname=? and ssn=?");
 
-	            ps.setString(1, params[11]);	     
-	            ps.setString(2, params[12]);	     
-	            ps.setString(3, params[13]);	      
+	            ps.setString(1, params[11]);	
+	            
+	            if (params[12]!=null && params[12]!="") {
+	            	ps.setString(2, params[12]);
+	            }else ps.setNull(2, java.sql.Types.VARCHAR);
+	            
+	            if (params[13]!=null && params[13]!="") {
+	            	ps.setString(2, params[13]);
+	            }else ps.setNull(2, java.sql.Types.VARCHAR);
+	            
 	            ps.setString(4, params[9]);	 	     
 	            ps.setString(5, params[10]);	 	     
 	            ps.setString(6, params[0]);	 		
@@ -796,6 +831,54 @@ public class  PostgreSqlConn{
 		}
 		
 		public  ArrayList<Room> getbookedRooms(String custSSN){
+			//TODO fix this query to query more information from the bookings
+			
+			getConn();
+			
+			ArrayList<Room> Rooms = new ArrayList<Room>();
+			ArrayList<booking> bookings = new ArrayList<booking>();
+			try {
+				ps = db.prepareStatement("SET search_path = 'eHotel'");
+				ps.executeUpdate();
+				ps = db.prepareStatement("select * from booking where SSN='"+custSSN+"'");
+				rs = ps.executeQuery();
+				while(rs.next()){
+					String chainName = rs.getString("chainName");
+					String hotelName = rs.getString("hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
+					String checkInDate = rs.getString("checkInDate");
+					String checkOutDate = rs.getString("checkOutDate");
+					booking booking = new booking(chainName, hotelName,roomNumber,checkInDate,checkOutDate);
+					bookings.add(booking);
+				}
+				for(booking booking: bookings) {
+					ps = db.prepareStatement("select * from room where chainName='"+booking.getchainName()
+											+"' AND hotelName='"+booking.gethotelName()+"' AND roomNumber='"
+											+booking.getRoomNumber()+"'");
+					rs = ps.executeQuery();
+					rs.next();
+					String chainName = rs.getString("chainName");
+					String hotelName = rs.getString("hotelName");
+					int roomNumber = Integer.parseInt(rs.getString("roomNumber"));
+					float price = Float.parseFloat(rs.getString("price"));
+					String capacity = rs.getString("capacity");
+					String view = rs.getString("view");
+					boolean extendable = Boolean.parseBoolean(rs.getString("extendable"));
+					String problems = rs.getString("problems");
+					Room room = new Room(chainName,hotelName,roomNumber,price,capacity,view,extendable,problems);
+					Rooms.add(room);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	        	closeDB();
+	        }
+			return Rooms;
+			
+		}
+		
+
+		public  ArrayList<Room> getbookedRooms(String custSSN, String hotelname, String chainname, LocalDate date){
 			//TODO fix this query to query more information from the bookings
 			
 			getConn();

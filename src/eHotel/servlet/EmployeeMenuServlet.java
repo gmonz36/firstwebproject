@@ -1,6 +1,9 @@
 package eHotel.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import eHotel.connections.PostgreSqlConn;
+import eHotel.entities.Room;
 
 /**
  * Servlet implementation class EmployeeMenuServlet
@@ -30,27 +34,24 @@ public class EmployeeMenuServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
 
 		HttpSession session = req.getSession();
-		String customerSSN = req.getParameter("customerSSN");
-		req.setAttribute("customerSSN", customerSSN);
+		String customerSSN = req.getParameter("SSN");
+		req.setAttribute("SSN", customerSSN);
 
 
 		PostgreSqlConn con = new PostgreSqlConn();
 		String[] customer = con.getuserinforbycustSSN(customerSSN);
 		if (customer[0]!=null) {			
 			
-			String[] booking = con.getuserBooking(customerSSN);
+			System.out.println(session.getAttribute("chainname"));
+			ArrayList<Room> bookedRooms = con.getbookedRooms(customerSSN, (String)session.getAttribute("hotelname"),(String)session.getAttribute("chainname"), LocalDate.now());
+			req.setAttribute("bookedRooms", bookedRooms);
+			req.setAttribute("SSN", customerSSN);
 			
-			req.setAttribute("chainname", booking[0]);
-			req.setAttribute("hotelname", booking[1]);
-			req.setAttribute("roomnumber", booking[2]);
-			//req.setAttribute("customerSSN", booking[3]);
-			req.setAttribute("bookingid", booking[4]);
-			req.setAttribute("checkindate", booking[5]);
-			req.setAttribute("checkoutdate", booking[6]);
+			
 			req.getRequestDispatcher("Employee_CheckIn.jsp").forward(req, resp);
 			return;
 		}
-
+		System.out.println("test");
 		resp.sendRedirect("login_failure.jsp");
 		return;
 	}

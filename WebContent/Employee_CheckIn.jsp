@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="eHotel.entities.Room"%>
+<%@page import="eHotel.entities.HotelChain"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,45 +12,26 @@
 </head>
 <body>
 
-		<form method="post" action="checkin">
-<ul>
-
+	<%
+		String custSSN = (String) request.getAttribute("SSN");
+	%>
+				<h4>Here are the room(s) you booked</h4>
+				<ul>
 					<%
-					if (request.getAttribute("chainname") != null){
-					
-					String message = "The following room has been booked for today:";
-					String chainname= (String) request.getAttribute("chainname");
-					String hotelname=(String)request.getAttribute("hotelname");
-					String roomnumber=(String)request.getAttribute("roomnumber");
-					String customerSSN=(String)request.getAttribute("customerSSN");
-					String bookingID=(String)request.getAttribute("bookingid");
-					String CheckInDate=(String)request.getAttribute("checkindate");
-					String CheckOutDate =(String)request.getAttribute("checkoutdate");					
-						%>
-					<li><%=message%></li>
-					<li><%=chainname%></li>
-					<li><%=hotelname%></li>
-					<li><%=roomnumber%></li>
-					<li><%=customerSSN%></li>
-					<li><%=bookingID%></li>
-					<li><%=CheckInDate%></li>
-					<li><%=CheckOutDate%></li>
-					
-		
-					<% } 
-					else{
-						
-					}
+						Object obj1 = request.getAttribute("bookedRooms");
+						ArrayList<Room> broomList = null;
+						if (obj1 instanceof ArrayList) {
+							broomList = (ArrayList<Room>) obj1;
+						}
+						if (broomList != null) {
+							for (Room room : broomList) {
+								String roominfo = "Room number "+Integer.toString(room.getRoomNumber())+" in "+room.gethotelName();
 					%>
-					
+					<li><%=roominfo%></li>
+					<%
+						}
+						}
+					%>
 				</ul>
-				
-		Perform Check-in on Customer SSN:<input type="text" id="SSN" name="customerSSN"><br>
-		<button type="submit" value="submit" onclick="return validate();">Submit</button>
-		<br>
-		<br>
-		
-	
-	</form>
 </body>
 </html>

@@ -15,10 +15,6 @@
 			return false;
 		}
 		
-	//	else if(upass.value ==""){
-		//	alert("password can't be null");
-			//return false;
-	//	}
 		else
 			return true;
 	}
@@ -31,7 +27,7 @@
 	
 	
 	<form method="post" action="empMenu">
-		Perform Check-in on Customer SSN:<input type="text" id="SSN" name="customerSSN"><br>
+		Perform Check-in on Customer SSN:<input type="text" id="SSN" name="SSN"><br>
 		<button type="submit" value="submit" onclick="return validate();">Submit</button>
 		<br>
 		
